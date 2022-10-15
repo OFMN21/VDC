@@ -124,7 +124,7 @@ app.get("/homepage", function(req, res) {
     }, function(err, foundUsers) {
 
       res.render("homepage", {
-        newListItems: foundUsers
+        newListItems: foundUsers.dateSets
 
       });
     });

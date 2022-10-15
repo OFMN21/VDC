@@ -43,15 +43,13 @@
 
         <div style="margin-top: 0px;" class="box">
 
-          <% newListItems.dateSets.forEach(function(dataset) {%>
+          <% newListItems.forEach(function(dataset) {%>
 
           <form action="/delete" id="delete" method="post">
             <div class="item">
 
-              <input type="hidden" id="fname" name="dataset" value="<%=dataset%>">
-              <a class="btn btn-outline-danger deleteButton" onclick="document.getElementById('delete').submit(); return false;">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-              </a>
+
+              <input type="checkbox" name="dataset" value="<%=dataset%>" onchange="this.form.submit()">
 
               <a href="#">
                 <p class="dataset" value="dataset"><%=dataset%></p>
