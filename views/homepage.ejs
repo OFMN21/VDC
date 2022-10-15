@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Homepage</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/sidebar-menu.css">
+  <link rel="stylesheet" href="css/homepage.css">
+  <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+  <main>
+
+    <header class="p-3 text-bg-dark">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          </ul>
+          <div class="text-end">
+            <a class="hide_UnderLine btn btn-outline-light me-2" href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+  </main>
+
+  <!-- ######### Sidebar ############# -->
+  <section style="width: 200px;">
+    <ul style="margin-top: 70px;" class="sidebar-menu vertical-menu">
+      <li class="sidebar-header">
+        <h3 style="color:white">Datasets</h3>
+      </li>
+      <li>
+
+        <div style="margin-top: 0px;" class="box">
+
+          <% newListItems.forEach(function(dataset) {%>
+          <form action="/delete" method="post">
+            <div class="item">
+
+
+              <button type="button" style="margin-left:10px; width='60' height='100' " class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+              </button>
+
+              <a href="#">
+                <p><%=dataset%></p>
+              </a>
+
+            </div>
+          </form>
+          <%})%>
+
+          <form action="/create" class="create" enctype="multipart/form-data" method="post">
+            <hr>
+            <label for="formFile" class="form-label">Enter Dataset name</label>
+            <input class="form-control form-control-sm" type="text" name="datasetName" placeholder="New Dataset" autocomplete="off" required>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Select CSV file</label>
+              <input class="form-control" type="file" name="file" id="formFile" required>
+            </div>
+            <button type="submit" name="list" class="btn btn-primary">Create</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+
+</body>
+
+</html>

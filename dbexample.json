@@ -1,0 +1,113 @@
+
+'users': [
+  {
+    'email': fahad@g.com,
+    'password': 'fahad',
+    'datasets': ["students", "tables"],
+  },
+  ],
+
+
+  'grades_fahad@g.com':[
+    {
+      metadata:ture,
+      'math': string,
+      'SWE211' : string
+    }
+    {
+      math:A+,
+      SWE211: B+
+    }
+  ]
+
+  'students_1': [
+    {
+      'metadata': true,
+      'student_id': int,
+      'name': String,
+      GPA: double
+    }
+    {
+      'student_id': '437101051',
+      'name': 'Naser',
+      'GPA': 3.88,
+      'year': '2018',
+      'course': 'SWE211',
+      'grade': 'A+'
+    },
+    {
+      'student_id': '437101051',
+      'name': 'Ahmed',
+      'GPA': 3.88,
+      'year': '2018',
+      'course': 'SWE211',
+      'grade': 'A+'
+    }
+  ]
+}
+
+currentUserID
+datasetName
+
+var dataset = db.getCollection(datasetName + '_' + currentUserID)
+
+vat metadata = dataset.findOne({metadata: true})
+
+metadata.keys()
+
+
+let query = []
+
+query.push({'GPA': {$gt: 4}})
+query.push({'age': {$gt: 24}})
+query.push({$or:[{'name': 'Ahmed'}, {'name': 'Nasser'}]})
+
+
+
+
+var test = dataset.find({
+$and: [
+  {'age':{$gt: 19}},
+  {'Year': 2018},
+  {$or:[
+    {'name': 'Ahmed'},
+    {'name': 'Nasser'}
+  ]}
+]
+})
+
+
+GPA > 3.5
+
+var newPopulation = dataset.find({
+  $and: [
+    {'GPA': {$gt: 3.5}},
+    {'age': {$lt: 20}},
+    {$or:
+      [
+        {'grade': B},
+        {'age': {$gt: 25}}
+      ]
+    },
+
+  ]})
+
+height,width
+int,int
+10,20
+
+Student ID,Student name,GPA,Year,Course,Grade
+
+Sid,String,gpa,Date,String,grade
+
+437101051,Naser,3.88,2018,SWE211,A+
+
+437101234,Ahmed,4.55,2018,SWE211,A
+
+438105555,Mohammed,3.5,2019,SWE211,B
+
+439107677,Fahad,4.8,2020,SWE211,A+
+
+439102222,Omar,4.25,2020,SWE211,D+
+
+439100000.2,Khalid,3.95,2020, SWE211,C

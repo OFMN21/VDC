@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>DataVC</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap" />
+        </svg>
+        <span class="fs-4">VDC</span>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="Homepage.html" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#hanging-icons" class="nav-link">Features</a></li>
+        <li class="nav-item"><a href="#accordionFlushExample" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      </ul>
+    </header>
+  </div>
+
+
+
+
+  <!-- sign in -->
+
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 mb-3">Visualization of data correlation</h1>
+        <p class="col-lg-10 fs-4">A web application that aims to simplify data by displaying it in simple charts, allowing users to easily identify correlations between individual attributes All of this is accomplished by allowing the user to define
+          a dataset, a population, and a query to retrieve population information.</p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+
+        <form action="/login" method="POST" class="p-4 p-md-5 border rounded-3 bg-light">
+          <% if(msg){ %>
+          <div class="alert alert-danger" role="alert">
+            <%= msg %>
+          </div>
+          <%  } %>
+
+
+          <div class="form-floating mb-3">
+            <input type="email" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+          <p style="text-align:center ">Forgot password? <a class="hide_UnderLine" href="#">here</a></p>
+          <p style="text-align:center ">Don't have an account? <a class="hide_UnderLine" href="/register">Sign Up</a></p>
+
+          <hr class="my-4">
+
+          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small> <!-- remove?? -->
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+
+
+  <div class="container px-4 py-5" id="hanging-icons">
+    <h2 class="pb-2 border-bottom">Hanging icons</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="col d-flex align-items-start">
+        <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em">
+            <use xlink:href="#toggles2" />
+          </svg>
+        </div>
+        <div>
+          <h2>Featured title</h2>
+          <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em">
+            <use xlink:href="#cpu-fill" />
+          </svg>
+        </div>
+        <div>
+          <h2>Save Your Work</h2>
+          <p>You will definitely want to save your work while working; this feature saves your work so that you can return to it later.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em">
+            <use xlink:href="#tools" />
+          </svg>
+        </div>
+        <div>
+          <h2>Clear and Customizable Data Visualization</h2>
+          <p>We use data visualization tools like charts and graphs, which can be customized to make them more understandable and colorful.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQs -->
+  <div class="container px-4 py-5">
+
+    <div class="accordion accordion-flush " id="accordionFlushExample">
+      <h2 class="">FAQs</h2>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Why can't upload my data file?
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Check that the uploaded file format matches the required format; here is an example of a completed data file.
+            <!--move to anthor page explains the format-->
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            How to retrive an archive a dataset?
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Simply by going to the archive list and then select the dataset ,press the dearchive button.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            What can i customized in a chart?
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">You can change the chart type ,color and the font color and style</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="Homepage.html" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#hanging-icons" class="nav-link px-2 text-muted">Features</a></li>
+        <li class="nav-item"><a href="#accordionFlushExample" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+      </ul>
+      <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
+    </footer>
+  </div>
+
+
+
+
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
