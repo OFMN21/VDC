@@ -44,13 +44,16 @@
         <div style="margin-top: 0px;" class="box">
 
           <% newListItems.forEach(function(dataset) {%>
-          <form action="/delete" method="post">
+          <form action="/delete" id="delete" method="post">
+
             <div class="item">
 
-              <button type="button" class="btn btn-outline-danger deleteButton"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <a class="btn btn-outline-danger deleteButton" onclick="document.getElementById('delete').submit(); return false;">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
 
               <a href="#">
-                <p class="dataset"><%=dataset%></p>
+                <p class="dataset" value="dataset"><%=dataset%></p>
               </a>
 
             </div>

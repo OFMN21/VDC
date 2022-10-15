@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const createDataset = require("./create");
+const deleteDataset = require("./delete")
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
@@ -89,15 +90,8 @@ app.post("/create", upload.single('file'), function(req, res) {
 });
 
 app.post("/delete", function(req, res) {
-  const checkedItemId = req.body.checkbox;
-
-  Dataset.findByIdAndRemove(checkedItemId, function(err) {
-    if (!err) {
-      console.log("Succssfully deleted checked item.");
-      res.redirect("/homepage");
-
-    }
-  })
+  console.log("ds");
+  res.redirect("/homepage");
 })
 
 app.get("/", function(req, res) {
@@ -118,9 +112,9 @@ app.get("/login", function(req, res) {
   });
 });
 
+
 app.get("/homepage", function(req, res) {
   if (req.isAuthenticated()) {
-
     User.findOne({
       username: currentUser
     }, {
@@ -133,11 +127,10 @@ app.get("/homepage", function(req, res) {
       });
     });
   } else {
-    res.redirect("/", {
-      msg: 'Email or Password is wrong, please try again'
-    });
+    res.redirect("/");
   }
 });
+
 
 app.get("/logout", (req, res) => {
   req.logout(req.user, err => {
