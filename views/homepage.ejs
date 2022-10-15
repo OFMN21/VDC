@@ -49,7 +49,11 @@
             <div class="item">
 
 
-              <input type="checkbox" name="dataset" value="<%=dataset%>" onchange="this.form.submit()">
+              <i class="" aria-hidden="true">
+                <input type="checkbox" name="dataset" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="this.form.submit()">
+              </i>
+
+
 
               <a href="#">
                 <p class="dataset" value="dataset"><%=dataset%></p>
