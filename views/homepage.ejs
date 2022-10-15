@@ -43,11 +43,12 @@
 
         <div style="margin-top: 0px;" class="box">
 
-          <% newListItems.forEach(function(dataset) {%>
-          <form action="/delete" id="delete" method="post">
+          <% newListItems.dateSets.forEach(function(dataset) {%>
 
+          <form action="/delete" id="delete" method="post">
             <div class="item">
 
+              <input type="hidden" id="fname" name="dataset" value="<%=dataset%>">
               <a class="btn btn-outline-danger deleteButton" onclick="document.getElementById('delete').submit(); return false;">
                 <i class="fa fa-trash" aria-hidden="true"></i>
               </a>
@@ -60,7 +61,7 @@
           </form>
           <%})%>
 
-          <form action="/create" class="create" enctype="multipart/form-data" method="post">
+          <form action=" /create" class="create" enctype="multipart/form-data" method="post">
             <hr>
             <label for="formFile" class="form-label">Enter Dataset name</label>
             <input class="form-control form-control-sm" type="text" name="datasetName" placeholder="New Dataset" autocomplete="off" required>

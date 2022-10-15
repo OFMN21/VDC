@@ -90,7 +90,9 @@ app.post("/create", upload.single('file'), function(req, res) {
 });
 
 app.post("/delete", function(req, res) {
-  console.log("ds");
+  const ds = req.body.dataset
+  console.log(ds)
+  //deleteDataset(ds, currentUser)
   res.redirect("/homepage");
 })
 
@@ -122,7 +124,7 @@ app.get("/homepage", function(req, res) {
     }, function(err, foundUsers) {
 
       res.render("homepage", {
-        newListItems: foundUsers.dateSets
+        newListItems: foundUsers
 
       });
     });
