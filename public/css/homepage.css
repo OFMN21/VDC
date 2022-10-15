@@ -49,6 +49,17 @@ form.item {
   padding: 10px;
 }
 
+.deleteButton {
+  margin: 0px 0px 0px 10px;
+  padding: 0px 5px 0px 5px;
+  border: 0;
+}
+
+.dataset {
+  margin: 5px;
+  padding: 5px 5px 5px 0px;
+}
+
 /*
 button {
   min-height: 50px;
