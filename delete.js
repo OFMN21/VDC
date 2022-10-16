@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 function deleteDataset(datasetName, username){
-  const ds = datasetName + "_" + username
+  const ds = datasetName + "_" + username +"s"
   mongoose.connection.db.dropCollection(ds, function(err, result) {
   console.log(ds + " has been deleted successfully");
   });

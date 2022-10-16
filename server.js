@@ -92,6 +92,9 @@ app.post("/create", upload.single('file'), function(req, res) {
 app.post("/delete", function(req, res) {
   const ds = req.body.dataset
   console.log(ds);
+  User.updateOne( { username:currentUser },
+                  { $pullAll: { dateSets: [ ds ] }
+  })
   deleteDataset(ds, currentUser)
   res.redirect("/homepage");
 })
