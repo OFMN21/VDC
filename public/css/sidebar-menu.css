@@ -22,14 +22,16 @@
 
 /* ####################### */
 .vertical-menu {
-  width: 250px;
+  width: 233px;
   height: 100%;
   background-color: #1c1c1c;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
-}
+  position:absolute;
 
+}
+/*
 /* ####################### */
 .animate-menu-left {
   left: -200px;
@@ -81,7 +83,7 @@
 .sidebar-menu>li .badge {
   margin-top: 3px;
   margin-right: 5px;
-}
+} */
 
 .sidebar-menu li.sidebar-header {
   padding: 15px 30px 15px 20px;
