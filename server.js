@@ -5,7 +5,7 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
-const createDataset = require("./create");
+const create = require("./create");
 const deleteDataset = require("./delete")
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
@@ -44,10 +44,14 @@ app.use(passport.session()); // use passport to manage session
 
 //DB
 //mongodb+srv://OFMN21:OFMN212@vdc.jenoizx.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect('mongodb://localhost:27017', {
+mongoose.connect('mongodb://localhost:27017/', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
+
+//const db = mongoose.connection;
+
+
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -64,38 +68,39 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 app.post("/create", upload.single('file'), function(req, res) {
 
   var name = req.body.datasetName + ""
-  var datasetName = name + '_' + currentUser; //change username to globalString ------------------------------------------------>to go back to the old IDEA
+  var datasetName = name + '_' + currentUser+ 's'; //change username to globalString ------------------------------------------------>to go back to the old IDEA
   var file = __dirname + '/uploads/' + req.file.filename
 
-  User.updateOne({
-    username: {
-      $gte: currentUser
-    }
-  }, {
-    $push: {
-      dateSets: [name]
+  mongoose.connection.db.listCollections({name: datasetName})
+      .next(function(err, collinfo) {
+          if (collinfo) {
+            console.log("the collection exist");
+            create.updateDataset(datasetName, file)
+          }else{
+            User.updateOne({
+              username: {
+                $gte: currentUser
+              }
+            }, {$push: {
+                dateSets: [name]
 
-    }
-  }, function(err, docs) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log("Updated Docs : ", docs)
-    }
-  })
-
-  createDataset(datasetName, file)
+              }}, function(err, docs) {
+              if (err) {
+                console.log(err)
+              } else {
+                console.log("Updated Docs : ", docs)
+              }
+            })
+            create.createDataset(datasetName, file)
+          }
+      });
 
   res.redirect("/homepage");
 });
 
 app.post("/delete", function(req, res) {
   const ds = req.body.dataset
-  console.log(ds);
-  User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: req.body.dataset } }, function(err, foundList) {
-    
-});
-
+  User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: req.body.dataset } }, function(err, foundList) {});
   deleteDataset(ds, currentUser)
   res.redirect("/homepage");
 })
