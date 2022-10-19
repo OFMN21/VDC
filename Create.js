@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 function createDataset(datasetName, file) {
+console.log("creating");
 const data = [];
 fs.createReadStream(file)
   .pipe(

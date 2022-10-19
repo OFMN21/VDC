@@ -11,6 +11,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
 
+let dsDelete;
 let currentUser;
 var message = 'undefined';
 var storage = multer.diskStorage({
@@ -49,9 +50,6 @@ mongoose.connect('mongodb://localhost:27017/', {
   useUnifiedTopology: true,
 });
 
-//const db = mongoose.connection;
-
-
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -76,7 +74,6 @@ app.post("/create", upload.single('file'), function(req, res) {
   mongoose.connection.db.listCollections({name: datasetName})
       .next(function(err, collinfo) {
           if (collinfo) {
-            console.log("the collection exist");
             create.updateDataset(datasetName, file)
             message = "Dataset Updated";
           }else{
@@ -102,12 +99,12 @@ app.post("/create", upload.single('file'), function(req, res) {
   res.redirect("/homepage");
 });
 
-app.post("/delete", function(req, res) {
-  const ds = req.body.dataset
-  User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: req.body.dataset } }, function(err, foundList) {});
-  deleteDataset(ds, currentUser)
+app.post("/delete",function(req, res) {
+  User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: dsDelete } }, function(err, foundList) {});
+  deleteDataset(dsDelete, currentUser)
+  dsDelete = null;
   res.redirect("/homepage");
-})
+});
 
 app.get("/", function(req, res) {
   res.render("login", {
@@ -127,22 +124,32 @@ app.get("/login", function(req, res) {
   });
 });
 
-
-app.get("/homepage",function(req, res) {
-var datasetName = req.body.dataset + '_' + currentUser+ 's';
-var dataset= mongoose.connection.db.getCollection(datasetName)
+app.post("/homepage", function(req, res) {
+  var datasetName = req.body.view + '_' + currentUser + 's';
+  if(req.body.delete != undefined){
+    dsDelete = req.body.delete;
+    res.redirect(307, "/delete");
+  }else{
+  //console.log(req.body.delete)
+  //console.log(req.body.view)
+  var dataset = mongoose.connection.db.collection(datasetName)
   console.log(dataset)
-
   var mykeys;
-  "the Collection".findOne({}, function(err,result) {
+  dataset.findOne({}, function(err,result) {
   if(err){
     console.log("not working")
   }
   mykeys = Object.keys(result._doc);
   // console.log(mykeys);
-  });
-  Ddisplay=mykeys.splice(1,mykeys.length-2)
+  var Ddisplay = mykeys.splice(1,mykeys.length-2)
   console.log(Ddisplay)
+  });
+
+  }
+
+});
+
+app.get("/homepage",function(req, res) {
 
   if (req.isAuthenticated()) {
     User.findOne({
@@ -155,6 +162,7 @@ var dataset= mongoose.connection.db.getCollection(datasetName)
         newListItems: foundUsers.dateSets,
         msg: message
       });
+      message = 'undefined';
     });
   } else {
     res.redirect("/");
