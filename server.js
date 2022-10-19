@@ -12,7 +12,7 @@ const multer = require('multer');
 const app = express();
 
 let currentUser;
-
+var message = 'undefined';
 var storage = multer.diskStorage({
   destination: (req, file, callBack) => {
     callBack(null, './uploads/')
@@ -76,6 +76,7 @@ app.post("/create", upload.single('file'), function(req, res) {
           if (collinfo) {
             console.log("the collection exist");
             create.updateDataset(datasetName, file)
+            message = "Dataset Updated";
           }else{
             User.updateOne({
               username: {
@@ -92,6 +93,7 @@ app.post("/create", upload.single('file'), function(req, res) {
               }
             })
             create.createDataset(datasetName, file)
+            message = "Dataset Created"
           }
       });
 
@@ -124,7 +126,7 @@ app.get("/login", function(req, res) {
 });
 
 
-app.get("/homepage", function(req, res) {
+app.get("/homepage",function(req, res) {
   if (req.isAuthenticated()) {
     User.findOne({
       username: currentUser
@@ -133,8 +135,8 @@ app.get("/homepage", function(req, res) {
     }, function(err, foundUsers) {
 
       res.render("homepage", {
-        newListItems: foundUsers.dateSets
-
+        newListItems: foundUsers.dateSets,
+        msg: message
       });
     });
   } else {

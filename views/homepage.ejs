@@ -20,7 +20,7 @@
 <body style="overflow-x: hidden;">
 
 
-    <main>
+  <main>
 
     <header class="p-3 text-bg-dark">
       <div class="container">
@@ -38,161 +38,182 @@
 
 
 
-
-<div class="row">
+  
+  <div class="row">
 
-  <div class="col-2" style="border: 1px solid;">
-    <!-- ########### column #1 ############## -->
-    <!-- ######### Sidebar ############# -->
-    <!-- overflow: auto -->
-    <ul style="margin-top: 67px; " class="sidebar-menu vertical-menu">
-      <li class="sidebar-header" >
-        <h3 style="color:white; margin-left:30px">Datasets</h3>
-      </li>
-      <li>
+    <div class="col-2" style="border: 1px solid;">
+      <!-- ########### column #1 ############## -->
+      <!-- ######### Sidebar ############# -->
+      <!-- overflow: auto -->
+      <ul style="margin-top: 67px; " class="sidebar-menu vertical-menu">
+        <li class="sidebar-header">
+          <h3 style="color:white; margin-left:30px">Datasets</h3>
+        </li>
+        <li>
 
-        <div style="margin-top: 0px;" class="box">
+          <div style="margin-top: 0px;" class="box">
 
-          <% newListItems.forEach(function(dataset) {%>
 
-          <form action="/delete" id="delete" method="post">
-            <div class="item">
+            <% newListItems.forEach(function(dataset) {%>
+            <form action="/delete" id="delete" method="post">
+              <div class="item">
 
-              <i class="" aria-hidden="true">
-                <input type="checkbox" name="dataset" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="this.form.submit()">
-              </i>
+                <i class="" aria-hidden="true">
+                  <input type="checkbox" name="dataset" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="this.form.submit()">
+                </i>
 
-              <a href="#">
-                <p class="dataset" value="dataset"><%=dataset%></p>
-              </a>
+                <a href="#">
+                  <p class="dataset" value="dataset"><%=dataset%></p>
+                </a>
 
-            </div>
-          </form>
-          <%})%>
+              </div>
+            </form>
+            <%})%>
 
-          <form action=" /create" class="create" enctype="multipart/form-data" method="post">
-            <hr>
-            <label for="formFile" class="form-label">Enter Dataset name</label>
-            <input class="form-control form-control-sm" type="text" name="datasetName" placeholder="New Dataset" autocomplete="off" required>
-            <div class="mb-3">
-              <label for="formFile" class="form-label">Select CSV file</label>
-              <input class="form-control" type="file" name="file" id="formFile" required>
-            </div>
-            <button type="submit" name="list" class="btn btn-primary">Create</button>
-          </form>
+            <form action=" /create" class="create" enctype="multipart/form-data" method="post">
+              <hr>
+              <label for="formFile" class="form-label">Enter Dataset name</label>
+              <input class="form-control form-control-sm" type="text" name="datasetName" placeholder="New Dataset" autocomplete="off" required>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Select CSV file</label>
+                <input class="form-control" type="file" name="file" id="formFile" required>
+              </div>
+              <button type="submit" name="list" class="btn btn-primary">Create</button>
+
+              <% if(msg != 'undefined'){ %>
+              <div class="alert alert-success" id="alert" style="margin:15px;text-align:center;" role="alert">
+                <%= msg %>
+              </div>
+              <%  } %>
+              <script type="text/javascript">
+                let alert = document.getElementById('alert')
+                let time = 3000 // time in milliseconds
+                alert.hidden = false // set img to hidden on load
+                setTimeout(() => {
+                  alert.hidden = true // after timeout show img
+                }, time)
+              </script>
+
+
+            </form>
+
+          </div>
+
+        </li>
+      </ul>
+    </div>
+
+
+
+
+    <div class="col-5" style="border: 1px solid;">
+      <!-- ########## population section column #2 ############# -->
+      <h3 style="text-align: center; margin:100px;">population</h3>
+
+
+      <div class="container" style="margin:140px">
+
+        <div class="row" style="width:458px;margin-bottom:5px;">
+          <!-- ###### row number 1 ###### -->
+          <button style="width:40px; margin-right:10px;" type="button" class="btn btn-dark">+</button>
+          ADD aggregation function
         </div>
-      </li>
-    </ul>
-
-  </div>
-
-
-  <div class="col-5" style="border: 1px solid;">
-    <!-- ########## population section column #2 ############# -->
-        <h3 style="text-align: center; margin:100px;">population</h3>
-
-
-        <div class="container" style="margin:140px">
-
-          <div class="row" style="width:458px;margin-bottom:5px;">
-            <!-- ###### row number 1 ###### -->
-              <button style="width:40px; margin-right:10px;" type="button" class="btn btn-dark">+</button>
-              ADD aggregation function
-            </div>
 
         <div class="row" style="width:458px; margin-bottom:5px;">
           <!-- ###### row number 2 ###### -->
-    <select style="width:100px; display:inline; "class="form-select" aria-label="Default select example">
-    <option selected>grade1</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-    </select>
+          <select style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
+            <option selected>grade1</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
 
-    <select style="width:100px;display:inline; margin-left:25px;"class="form-select" aria-label="Default select example">
-    <option selected>grade1</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-    </select>
+          <select style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+            <option selected>grade1</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
 
-    <select style="width:100px; display:inline; margin-left:25px;"class="form-select" aria-label="Default select example">
-    <option selected>avg</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-    </select>
+          <select style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+            <option selected>avg</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+
+        <div class="row" style="width:458px; margin-bottom:5px;">
+          <!-- ###### row number 3 ###### -->
+          <button style="width:40px;margin-right:10px;" type="button" class="btn btn-dark">+</button>
+          ADD column
+        </div>
+
+        <div class="row" style="width:458px; margin-bottom:5px;">
+          <!-- ###### row number 4 ###### -->
+          <input type="text" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <button type="button" style="width:100px; margin-left:50px;" class="btn btn-outline-primary">Add</button>
+        </div>
+
+        <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
+          <!-- ###### row number 5 ###### -->
+          <button style="width:40px;margin-right:10px;" type="button" class="btn btn-dark">+</button>
+          ADD new constraints
+        </div>
+
+        <div class="row" style="width:458px; margin-bottom:10px;">
+          <!-- ###### row number 6 ###### -->
+          <p>define your population</p>
+
+          <select style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
+            <option selected>GPA</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
+            <option selected>></option>
+            <option value="1">
+              << /option>
+            <option value="2">>=</option>
+            <option value="3">
+              <=< /option>
+            <option value="3">=</option>
+          </select>
+
+          <select style="width:100px; display:inline; margin-left:10px " class="form-select" aria-label="Default select example">
+            <option selected>Other</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <input type="text" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>
+
+        <div class="row" style="width:458px;">
+          <!-- ###### row number 7 ###### -->
+          <input type="text" style="width:200px;" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <button type="button" style="width:100px; margin-left:50px;" class="btn btn-outline-primary">Applay</button>
+
+        </div>
+
+
+
+
+
+      </div>
     </div>
 
-      <div class="row" style="width:458px; margin-bottom:5px;">
-        <!-- ###### row number 3 ###### -->
-          <button style="width:40px;margin-right:10px;" type="button" class="btn btn-dark">+</button>
-              ADD column
-      </div>
-
-      <div class="row" style="width:458px; margin-bottom:5px;">
-        <!-- ###### row number 4 ###### -->
-        <input type="text" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-        <button type="button" style="width:100px; margin-left:50px;" class="btn btn-outline-primary">Add</button>
-      </div>
-
-      <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
-        <!-- ###### row number 5 ###### -->
-          <button style="width:40px;margin-right:10px;" type="button" class="btn btn-dark">+</button>
-            ADD new constraints
-      </div>
-
-      <div class="row" style="width:458px; margin-bottom:10px;">
-        <!-- ###### row number 6 ###### -->
-        <p>define your population</p>
-
-        <select style="width:100px; display:inline;"class="form-select" aria-label="Default select example">
-        <option selected>GPA</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-        </select>
-
-        <select style="width:100px; display:inline; margin-left:10px"class="form-select" aria-label="Default select example">
-        <option selected>></option>
-        <option value="1"><</option>
-        <option value="2">>=</option>
-        <option value="3"><=</option>
-        <option value="3">=</option>
-        </select>
-
-        <select style="width:100px; display:inline; margin-left:10px "class="form-select" aria-label="Default select example">
-        <option selected>Other</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-        </select>
-
-        <input type="text" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-      </div>
-
-      <div class="row" style="width:458px;">
-        <!-- ###### row number 7 ###### -->
-        <input type="text" style="width:200px;" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-        <button type="button" style="width:100px; margin-left:50px;" class="btn btn-outline-primary">Applay</button>
-
-      </div>
-
-
-
-
-
-    </div>
-  </div>
-
-  <div class="col-5" style="border: 1px solid;">
-    <!-- ########## query section column #3 ############# -->
+    <div class="col-5" style="border: 1px solid;">
+      <!-- ########## query section column #3 ############# -->
 
       <h3 style="text-align: center; margin:100px;">query</h3>
+    </div>
+
+
   </div>
-
-
-</div>
 
 </body>
 

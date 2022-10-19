@@ -89,7 +89,6 @@ var newPopulation = dataset.find({
         {'age': {$gt: 25}}
       ]
     },
-
   ]})
 
 height,width

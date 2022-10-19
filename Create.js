@@ -38,7 +38,7 @@ fs.createReadStream(file)
   .on("end", function () {
 
       const thingSchema = new mongoose.Schema(
-      data[0] , { strict: false });
+      data[0] , { strict: true });
       const name = datasetName + ""
       const Thing = new mongoose.model(name, thingSchema);
       let i = 1;
@@ -56,9 +56,9 @@ fs.createReadStream(file)
   });
 }
 
-function updateDataset(datasetName, file) {
+function  updateDataset(datasetName, file) {
 const data = [];
-fs.createReadStream(file)
+  fs.createReadStream(file)
   .pipe(
     parse({
       delimiter: ",",
@@ -73,16 +73,27 @@ fs.createReadStream(file)
   .on("error", function (error) {
     console.log(error.message);
   })
-  .on("end", function () {
-      const name = datasetName + ""
+  .on("end", async function (){
 
+  var obj = data[0];
+  console.log(obj);
+  const name = datasetName + ""
+  const Schema = mongoose.model(name, new mongoose.Schema(
+  obj
+));
+  var i = 1;
+  while (i < data.length){
+  obj = data[i];
+  var filter = {_id : obj._id}
+  console.log(filter + " of: " + obj);
+  await Schema.findOneAndUpdate(filter, obj, {
+  new: true,
+  upsert: true // Make this update into an upsert
+});
+i++;
+}
 //data.splice(1,data.length) cuts the array
-var obj = data[3];
 //Object.values(obj)[1] gives you first key value
-delete obj._id;
-console.log(obj)
-
- mongoose.connection.db.collection(name).replaceOne({_id:19},obj,{upsert:true})
 
   try {
     fs.unlinkSync(file);
