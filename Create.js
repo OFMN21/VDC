@@ -56,4 +56,50 @@ fs.createReadStream(file)
   });
 }
 
-module.exports = createDataset;
+function  updateDataset(datasetName, file) {
+const data = [];
+  fs.createReadStream(file)
+  .pipe(
+    parse({
+      delimiter: ",",
+      columns: true,
+      ltrim: true,
+    })
+  )
+  .on("data", function (row) {
+
+    data.push(row);
+  })
+  .on("error", function (error) {
+    console.log(error.message);
+  })
+  .on("end", async function (){
+
+  var obj = data[0];
+  console.log(obj);
+  const name = datasetName + ""
+  const Schema = mongoose.model(name, new mongoose.Schema(
+  obj
+));
+  var i = 1;
+  while (i < data.length){
+  obj = data[i];
+  var filter = {_id : obj._id}
+  await Schema.findOneAndUpdate(filter, obj, {
+  new: true,
+  upsert: true // Make this update into an upsert
+});
+i++;
+}
+//data.splice(1,data.length) cuts the array
+//Object.values(obj)[1] gives you first key value
+
+  try {
+    fs.unlinkSync(file);
+    console.log("Delete File successfully.");
+  } catch (error) { console.log(error);}
+  });
+}
+
+exports.createDataset = createDataset;
+exports.updateDataset = updateDataset;
