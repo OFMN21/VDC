@@ -36,7 +36,6 @@ fs.createReadStream(file)
     console.log(error.message);
   })
   .on("end", function () {
-
       const thingSchema = new mongoose.Schema(
       data[0] , { strict: true });
       const name = datasetName + ""
@@ -49,6 +48,7 @@ fs.createReadStream(file)
         thing.save();
             i++;
           }
+
   try {
     fs.unlinkSync(file);
     console.log("Delete File successfully.");

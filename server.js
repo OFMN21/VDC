@@ -61,6 +61,8 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser()); //start the session
 passport.deserializeUser(User.deserializeUser()); //end the session
 
+
+
 app.post("/create", upload.single('file'), function(req, res) {
 
   var name = req.body.datasetName + ""
@@ -85,7 +87,6 @@ app.post("/create", upload.single('file'), function(req, res) {
   })
 
   createDataset(datasetName, file)
-
   res.redirect("/homepage");
 });
 
@@ -93,7 +94,7 @@ app.post("/delete", function(req, res) {
   const ds = req.body.dataset
   console.log(ds);
   User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: req.body.dataset } }, function(err, foundList) {
-    
+
 });
 
   deleteDataset(ds, currentUser)
