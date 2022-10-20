@@ -11,6 +11,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
 
+var columnNames;
 let dsDelete;
 let currentUser;
 var message = 'undefined';
@@ -124,27 +125,25 @@ app.get("/login", function(req, res) {
   });
 });
 
-app.post("/homepage", function(req, res) {
+app.post("/view", function(req, res) {
+  columnNames = undefined;
   var datasetName = req.body.view + '_' + currentUser + 's';
+
   if(req.body.delete != undefined){
     dsDelete = req.body.delete;
     res.redirect(307, "/delete");
+
   }else{
-  //console.log(req.body.delete)
-  //console.log(req.body.view)
   var dataset = mongoose.connection.db.collection(datasetName)
-  console.log(dataset)
   var mykeys;
   dataset.findOne({}, function(err,result) {
-  if(err){
-    console.log("not working")
-  }
-  mykeys = Object.keys(result._doc);
-  // console.log(mykeys);
-  var Ddisplay = mykeys.splice(1,mykeys.length-2)
-  console.log(Ddisplay)
-  });
+  mykeys = Object.keys(result);
+  if(err){console.log("not working")}
 
+  columnNames = mykeys.splice(1,mykeys.length-2)
+  console.log(columnNames)
+});
+  res.redirect("/homepage");
   }
 
 });
@@ -160,7 +159,8 @@ app.get("/homepage",function(req, res) {
 
       res.render("homepage", {
         newListItems: foundUsers.dateSets,
-        msg: message
+        msg: message,
+        tbl: columnNames
       });
       message = 'undefined';
     });
