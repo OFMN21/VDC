@@ -169,7 +169,6 @@ app.get("/homepage",function(req, res) {
   }
 });
 
-
 app.get("/logout", (req, res) => {
   req.logout(req.user, err => {
     if (err) return next(err);
