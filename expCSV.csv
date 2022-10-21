@@ -1,7 +1,7 @@
-Name, Age, Country
-String, Number, String
-Jack,22, Australia
-Jane,27, United Kingdom
-Andrew,29, United States
-Mary,19, France
-omar,29, KSA
+_id,Name, Age, Country, key,gpa
+Number,String, Number, String, Number,Number
+1,Jack,22, Australia,1,44
+3,Jane,27, United Kingdom,2,4
+5,Andrew,29, United States,4,5
+6,Mary,19, France,555,7
+7,omar,29, KSA,6629,6
