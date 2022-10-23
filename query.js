@@ -16,26 +16,65 @@ var arr = []
 async function query(dataSetName,q1,q2,q3){
 var x = [];
 var y = [];
+var filtered;
+//const projection = { _id: 0 }; projection[q1] = 1; projection[q2] = 1;
+const grouping ={}; grouping[q1]=q1; grouping[q2] = q2;
 
-const projection = { _id: 0 }; projection[q1] = 1; projection[q2] = 1;
-
-var filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
-                                                                              [
-                                                                        //هذا  يسوي الاقرقيشن فنكشن بس عيا يشتغل        {$group:{_id:'$Year', y:{$sum:'$Score2'}}},
-                                                                                {$project: projection}
-                                                                              ]
-                                                                              ).toArray()
-console.log(filtered);
+switch (q3) {
+  case 'Avg':
+    console.log('AVG');
+    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+                                                                      [{$group:
+                                                                       {_id:'$'+grouping[q1],
+                                                                        y:{$avg:'$'+grouping[q2]}}}])
+                                                                       .toArray()
+    break;
+  case 'Count':
+    console.log('Count');
+    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+                                                                    [{$group:
+                                                                     {_id:'$'+grouping[q1],
+                                                                      y:{$sum:'$'+grouping[q2]}}}])
+                                                                     .toArray()
+  case 'Sum':
+    console.log('SUM');
+    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+                                                                      [{$group:
+                                                                       {_id:'$'+grouping[q1],
+                                                                        y:{$sum:'$'+grouping[q2]}}}])
+                                                                       .toArray()
+    break;
+    case 'Max':
+      console.log('MAX');
+      filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+                                                                        [{$group:
+                                                                         {_id:'$'+grouping[q1],
+                                                                          y:{$max:'$'+grouping[q2]}}}])
+                                                                         .toArray()
+      break;
+      case 'Min':
+        console.log('MIN');
+        filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+                                                                          [{$group:
+                                                                           {_id:'$'+grouping[q1],
+                                                                            y:{$min:'$'+grouping[q2]}}}])
+                                                                           .toArray()
+        break;
+  default:
+    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+                                                                            [
+                                                                              {$project: projection}
+                                                                            ]
+                                                                            ).toArray()}
 var obj;
 for (let i = 0; i < filtered.length; i++) {
   obj = filtered[i]
-  x.push(obj[q1])
-  y.push(obj[q2])
+  x.push(obj['_id'])
+  y.push(obj['y'])
 }
 arr.push(x)
 arr.push(y)
 return arr;
 // return arr;
 }
-
 exports.query = query;
