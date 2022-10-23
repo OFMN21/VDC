@@ -14,6 +14,7 @@ var arr = []
 
 
 async function query(dataSetName,q1,q2,q3){
+arr.length = 0;
 var obj;
 var x = [];
 var y = [];
@@ -79,7 +80,7 @@ arr.push(x)
 arr.push(y)
 return arr;
 }
-console.log(filtered);
+
 for (let i = 0; i < filtered.length; i++) {
   obj = filtered[i]
   x.push(obj['_id'])
@@ -88,6 +89,6 @@ for (let i = 0; i < filtered.length; i++) {
 arr.push(y)
 arr.push(x)
 return arr;
-// return arr;
+
 }
 exports.query = query;

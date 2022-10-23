@@ -70,26 +70,26 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 
 app.post("/filter", async function(req, res){
-    arr = undefined;
-    arr = await query.query(
+
+    var array = await query.query(
     dsName,
     req.body.q1,
     req.body.q2,
     req.body.q3
   );
-    x = arr[0];
-    y = arr[1];
-    console.log(x, y);
+
+    x = array[0];
+    y = array[1];
+
   res.redirect("/chartpage");
 });
 
 app.get("/chartpage", async function(req, res){
   if (req.isAuthenticated()) {
       res.render("chartpage", {
-        x:x,
-        y:y
+        x: await x,
+        y:await y
       });
-
   } else {
     res.redirect("/");
   }
