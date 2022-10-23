@@ -12,6 +12,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
 
+var x;
+var y;
 var dsName;
 var columnNames;
 var dsDelete;
@@ -74,9 +76,23 @@ app.post("/filter", async function(req, res){
     req.body.q2,
     req.body.q3
   );
-  console.log(arr);
-  res.redirect("/homepage")
+    x = arr[0];
+    y = arr[1];
+  //  console.log(x, y);
+  res.redirect("/chartpage");
 });
+
+app.get("/chartpage", function(req, res){
+  if (req.isAuthenticated()) {
+      res.render("chartpage", {
+        x:x,
+        y:y
+      });
+
+  } else {
+    res.redirect("/");
+  }
+})
 
 app.post("/create", upload.single('file'), function(req, res) {
 

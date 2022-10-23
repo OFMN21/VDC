@@ -30,14 +30,15 @@ switch (q3) {
                                                                        .toArray()
     break;
   case 'Count':
-    console.log('Count');
+    console.log('count');
     filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
                                                                     [{$group:
                                                                      {_id:'$'+grouping[q1],
                                                                       y:{$sum:'$'+grouping[q2]}}}])
                                                                      .toArray()
+  break;
   case 'Sum':
-    console.log('SUM');
+    console.log('sum');
     filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
                                                                       [{$group:
                                                                        {_id:'$'+grouping[q1],
@@ -65,7 +66,7 @@ switch (q3) {
                                                                             [
                                                                               {$project: projection}
                                                                             ]
-                                                                            ).toArray()}
+                                                                          ).toArray()}
 var obj;
 for (let i = 0; i < filtered.length; i++) {
   obj = filtered[i]

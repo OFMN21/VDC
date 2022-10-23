@@ -1,0 +1,148 @@
+<!doctype html>
+<html Lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>add and remove data</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica, sans-serif;
+    }
+
+    body {
+      background: #333;
+    }
+
+    .chartBox {
+      padding: 20px;
+      width: 700px;
+
+    }
+
+    .inputdesign {
+      border: solid 1 #333;
+      padding: 5px 10px;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="chartBox">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <div class="inputBox">
+    <input type="number" class="inputdesign" id="inputdata">
+    <input type="text" class="inputdesign" placeholder="Color" id="inputcolor">
+    <input type="text" class="inputdesign" placeholder="label" id="inputlabel">
+    <button onclick="updateChart()" id="insertdata">Add Data</button>
+    <hr>
+    <input type="number" class="inputdesign" id="filterdatanumber">
+    <button onclick="filterChart()">Filter Chart</button>
+    <button onclick="resetChart()">Reset Chart</button>
+    
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    console.log('sdfsfs');
+    const originalData = < %= x % > ;
+    const originalLabels = < %= y % > ;
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: originalLabels,
+        datasets: [{
+          label: '# of Votes',
+          data: originalData,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    function updateChart() {
+      const inputdata = document.getElementById('inputdata');
+      const inputcolor = document.getElementById('inputcolor');
+      const inputlable = document.getElementById('inputlabel');
+      myChart.data.datasets[0].data.push(inputdata.value);
+      myChart.data.datasets[0].backgroundColor.push(inputcolor.value);
+      myChart.data.datasets[0].borderColor.push(inputcolor.value);
+      myChart.data.labels.push(inputlabel.value);
+
+      myChart.update()
+
+    }
+    // function filterChart
+    function filterChart() {
+      myChart.data.datasets[0].data = originalData;
+      myChart.data.labels = originalLabels;
+      const filterdatanumber = document.getElementById('filterdatanumber').value;
+      // filter array.filter command
+      const filterData = myChart.data.datasets[0].data.filter(value => value >
+        filterdatanumber);
+      // create 2 new arrays for the labels + colors.
+      const filterLabels = [];
+      const filterColors = [];
+      // for loop + loop through the array get the matching value index0f()
+      let i = 0;
+      for (i; i < filterData.length; i++) {
+        const result = myChart.data.datasets[0].data.indexOf(filterData[i]);
+        const labelresult = myChart.data.labels[result];
+        const colorsresult = myChart.data.datasets[0].backgroundColor[result];
+        //push this into the new array
+        filterLabels.push(labelresult);
+        filterColors.push(colorsresult);
+
+
+      }
+      // reassign the array into the chart.
+      
+
+      myChart.data.datasets[0].data = filterData;
+      myChart.data.labels = filterLabels;
+      myChart.data.datasets[0].backgroundColor = filterColors;
+
+      // update chart
+      myChart.update()
+    }
+    function resetChart() {
+      myChart.data.datasets[0].data = originalData;
+      myChart.data.labels = originalLabels;
+      myChart.update();
+    }
+  </script>
+
+</body>
+
+</html>
