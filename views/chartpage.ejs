@@ -46,18 +46,20 @@
     <input type="number" class="inputdesign" id="filterdatanumber">
     <button onclick="filterChart()">Filter Chart</button>
     <button onclick="resetChart()">Reset Chart</button>
-    
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script>
-    console.log('sdfsfs');
-    const originalData = < %= x % > ;
-    const originalLabels = < %= y % > ;
+  <script type="">
+<% console.log(x, y) %>
+    var x = [<%= x %>]
+    var y = [<%= y %>]
+    const originalData = x ;
+    const originalLabels = y ;
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
         labels: originalLabels,
         datasets: [{
@@ -85,7 +87,7 @@
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: false
           }
         }
       }
@@ -127,7 +129,7 @@
 
       }
       // reassign the array into the chart.
-      
+
 
       myChart.data.datasets[0].data = filterData;
       myChart.data.labels = filterLabels;

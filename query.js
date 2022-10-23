@@ -14,10 +14,11 @@ var arr = []
 
 
 async function query(dataSetName,q1,q2,q3){
+var obj;
 var x = [];
 var y = [];
 var filtered;
-//const projection = { _id: 0 }; projection[q1] = 1; projection[q2] = 1;
+const projection = { _id: 0 }; projection[q1] = 1; projection[q2] = 1;
 const grouping ={}; grouping[q1]=q1; grouping[q2] = q2;
 
 switch (q3) {
@@ -66,15 +67,26 @@ switch (q3) {
                                                                             [
                                                                               {$project: projection}
                                                                             ]
-                                                                          ).toArray()}
-var obj;
+                                                                          ).toArray()
+}
+if(q3 == ""){
+  for (let i = 0; i < filtered.length; i++) {
+  obj = filtered[i]
+  x.push(obj[q1])
+  y.push(obj[q2])
+}
+arr.push(x)
+arr.push(y)
+return arr;
+}
+console.log(filtered);
 for (let i = 0; i < filtered.length; i++) {
   obj = filtered[i]
   x.push(obj['_id'])
   y.push(obj['y'])
 }
-arr.push(x)
 arr.push(y)
+arr.push(x)
 return arr;
 // return arr;
 }

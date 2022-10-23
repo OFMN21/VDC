@@ -70,6 +70,7 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 
 app.post("/filter", async function(req, res){
+    arr = undefined;
     arr = await query.query(
     dsName,
     req.body.q1,
@@ -78,11 +79,11 @@ app.post("/filter", async function(req, res){
   );
     x = arr[0];
     y = arr[1];
-  //  console.log(x, y);
+    console.log(x, y);
   res.redirect("/chartpage");
 });
 
-app.get("/chartpage", function(req, res){
+app.get("/chartpage", async function(req, res){
   if (req.isAuthenticated()) {
       res.render("chartpage", {
         x:x,
