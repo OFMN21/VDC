@@ -6,14 +6,16 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const create = require("./create");
+const query = require("./query");
 const deleteDataset = require("./delete")
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
 
+var dsName;
 var columnNames;
-let dsDelete;
-let currentUser;
+var dsDelete;
+var currentUser;
 var message = 'undefined';
 var storage = multer.diskStorage({
   destination: (req, file, callBack) => {
@@ -65,6 +67,16 @@ passport.serializeUser(User.serializeUser()); //start the session
 passport.deserializeUser(User.deserializeUser()); //end the session
 
 
+app.post("/filter", async function(req, res){
+    arr = await query.query(
+    dsName,
+    req.body.q1,
+    req.body.q2,
+    req.body.q3
+  );
+  console.log(arr);
+  res.redirect("/homepage")
+});
 
 app.post("/create", upload.single('file'), function(req, res) {
 
@@ -88,9 +100,7 @@ app.post("/create", upload.single('file'), function(req, res) {
               }}, function(err, docs) {
               if (err) {
                 console.log(err)
-              } else {
-                console.log("Updated Docs : ", docs)
-              }
+              } else {}
             })
             create.createDataset(datasetName, file)
             message = "Dataset Created"
@@ -127,21 +137,21 @@ app.get("/login", function(req, res) {
 
 app.post("/view", function(req, res) {
   columnNames = undefined;
-  var datasetName = req.body.view + '_' + currentUser + 's';
+  dsName = req.body.view + '_' + currentUser + 's';
 
   if(req.body.delete != undefined){
     dsDelete = req.body.delete;
     res.redirect(307, "/delete");
 
   }else{
-  var dataset = mongoose.connection.db.collection(datasetName)
+  var dataset = mongoose.connection.db.collection(dsName)
   var mykeys;
   dataset.findOne({}, function(err,result) {
   mykeys = Object.keys(result);
   if(err){console.log("not working")}
 
-  columnNames = mykeys.splice(1,mykeys.length-2)
-  console.log(columnNames)
+  columnNames = mykeys.splice(0,mykeys.length)
+
 });
   res.redirect("/homepage");
   }
@@ -164,12 +174,17 @@ app.get("/homepage",function(req, res) {
       });
       message = 'undefined';
     });
+
   } else {
     res.redirect("/");
   }
-});
+})
 
 app.get("/logout", (req, res) => {
+  columnNames = null;
+  dsDelete = null;
+  currentUser = null;
+  message = 'undefined';
   req.logout(req.user, err => {
     if (err) return next(err);
     res.redirect("/");
@@ -217,7 +232,6 @@ app.post("/login", function(req, res, next) {
     })
   })(req, res, next);
 });
-
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

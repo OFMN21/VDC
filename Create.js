@@ -38,7 +38,7 @@ fs.createReadStream(file)
   })
   .on("end", function () {
       const thingSchema = new mongoose.Schema(
-      data[0] , { strict: true });
+      data[0] , { strict: false, versionKey:false});
       const name = datasetName + ""
       const Thing = new mongoose.model(name, thingSchema);
       let i = 1;
@@ -49,7 +49,6 @@ fs.createReadStream(file)
         thing.save();
             i++;
           }
-
   try {
     fs.unlinkSync(file);
     console.log("Delete File successfully.");
@@ -77,16 +76,16 @@ const data = [];
   .on("end", async function (){
 
   var obj = data[0];
-  console.log(obj);
   const name = datasetName + ""
-  const Schema = mongoose.model(name, new mongoose.Schema(
-  obj
-));
+  mongoose.deleteModel(name);
+  const Schem = mongoose.model(name, new mongoose.Schema( obj,
+    {versionKey:false, strict:false}));
+
   var i = 1;
   while (i < data.length){
   obj = data[i];
   var filter = {_id : obj._id}
-  await Schema.findOneAndUpdate(filter, obj, {
+  await Schem.findOneAndUpdate(filter, obj, {
   new: true,
   upsert: true // Make this update into an upsert
 });
