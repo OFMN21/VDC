@@ -1,0 +1,15 @@
+_id,Year, GPA,counttry
+Number,String, Number,String
+1,2019,88,riyadh
+2,112020,89,ada
+3,1113030,400,adad
+4,2022,91,riyadh
+5,2023,92,riyadh
+6,2024,100,Qatar
+7,2024,34,Qatar
+8,2024,50,USA
+9,1900,333,USA
+10,2023,45,UAE
+11,2023,45,UAE
+12,2023,45,UAE
+13,2023,45,UAE

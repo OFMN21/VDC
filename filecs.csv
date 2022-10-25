@@ -1,8 +1,15 @@
-Year, GPA
-String, Number
-2019,88
-2020,89
-2021,90
-2022,91
-2023,92
-2024,100
+_id,Year, GPA,counttry,stry
+Number,String, Number,String,String
+1,2019,88,riyadh,riyadh
+2,112020,89,ada,adaaa
+3,1113030,400,adad,aa
+4,2022,91,riyadh,f
+5,2023,92,riyadh,aaaa
+6,2024,100,Qatar,a
+7,2024,34,Qatar,fe
+8,2024,50,USA,ve
+9,1900,333,USA,qrq
+10,2023,45,UAE,grg
+11,2023,45,UAE,tyt
+12,2023,45,UAE,bt
+13,2023,45,UAE,n

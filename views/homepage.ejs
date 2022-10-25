@@ -84,6 +84,7 @@
                 <input class="form-control" type="file" name="file" id="formFile" required>
               </div>
               <button type="submit" name="list" class="btn btn-primary">Create</button>
+              <button type="submit" name="list" class="btn btn-primary">Update</button>
 
               <% if(msg != 'undefined'){ %>
               <div class="alert alert-success" id="alert" style="margin:15px;text-align:center;" role="alert">
@@ -220,7 +221,7 @@
             <!-- ###### row number 1 ###### -->
             <p>Write your query</p>
             <div class="container">
-              <label style="color:grey; margin-left:-60px">x-axis
+              <label style="color:grey; margin-left:-60px">X-Axis
                 <select name="q1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
                   <option  style="color:grey" selected></option>
                   <% tbl.forEach(function(column) {%>
@@ -229,7 +230,7 @@
                 </select>
               </label>
 
-              <label style="color:grey; margin-left:50px">y-axis
+              <label style="color:grey; margin-left:50px">Y-Axis
                 <select name="q2" style="width:100px;display:inline; " class="form-select" aria-label="Default select example">
                   <option selected></option>
                   <% tbl.forEach(function(column) {%>
