@@ -219,19 +219,28 @@
           <div class="row" style="width:458px; margin-bottom:5px;">
             <!-- ###### row number 1 ###### -->
             <p>Write your query</p>
-            <select name="q1" style="width:200px; display:inline; " class="form-select" aria-label="Default select example">
-              <option selected></option>
-              <% tbl.forEach(function(column) {%>
-              <option><%= column%></option>
-              <%})%>
-            </select>
+            <div class="container">
+              <label style="color:grey; margin-left:-60px">x-axis
+                <select name="q1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
+                  <option  style="color:grey" selected></option>
+                  <% tbl.forEach(function(column) {%>
+                  <option><%= column%></option>
+                  <%})%>
+                </select>
+              </label>
 
-            <select name="q2" style="width:100px;display:inline; margin-left:50px;" class="form-select" aria-label="Default select example">
-              <option selected></option>
-              <% tbl.forEach(function(column) {%>
-              <option><%= column%></option>
-              <%})%>
-            </select>
+              <label style="color:grey; margin-left:50px">y-axis
+                <select name="q2" style="width:100px;display:inline; " class="form-select" aria-label="Default select example">
+                  <option selected></option>
+                  <% tbl.forEach(function(column) {%>
+                  <option><%= column%></option>
+                  <%})%>
+                </select>
+
+              </label>
+
+              </div>
+
           </div>
 
           <div class="row" style="width:458px; margin-bottom:5px;">
