@@ -34,7 +34,7 @@
     </header>
   </main>
   <div class="row">
-    <div class="col-2" >
+    <div class="col-2">
       <!-- ########### column #1 ############## -->
       <!-- ######### Sidebar ############# -->
       <!-- overflow: auto -->
@@ -48,32 +48,32 @@
         <li>
 
           <div style="margin-top: 0px;" class="box">
-            <div style="height: 475px; overflow: auto " >
-            <% newListItems.forEach(function(dataset) {%>
-            <form action="/view" id="delete" method="post">
-              <div class="item">
+            <div style="height: 475px; overflow: auto ">
+              <% newListItems.forEach(function(dataset) {%>
+              <form action="/view" id="delete" method="post">
+                <div class="item">
 
-                <!-- <a href="">
+                  <!-- <a href="">
                   <p class="dataset"><%=dataset%>
                     <input type="hidden" name="view" value="<%=dataset%>" onclick="submit()">
                   </p>
                 </a> -->
 
-                <i class="" aria-hidden="true">
-                  <input type="checkbox" name="delete" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="submit()">
-                </i>
-                <button class="dsbtn info">
-                  <%=dataset%>
-                  <input type="hidden" name="view" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="submit()">
-                </button>
-              </div>
-            </form>
-            <script>
-              function submit() {
-                document.getElementById("delete").submit();
-              }
-            </script>
-            <%})%>
+                  <i class="" aria-hidden="true">
+                    <input type="checkbox" name="delete" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="submit()">
+                  </i>
+                  <button class="dsbtn info">
+                    <%=dataset%>
+                    <input type="hidden" name="view" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="submit()">
+                  </button>
+                </div>
+              </form>
+              <script>
+                function submit() {
+                  document.getElementById("delete").submit();
+                }
+              </script>
+              <%})%>
             </div>
             <form action=" /create" class="create" enctype="multipart/form-data" method="post">
               <hr>
@@ -105,10 +105,10 @@
           </div>
 
         </li>
-        </div>
-      </ul>
-  
-    <div class="col-10" >
+    </div>
+    </ul>
+
+    <div class="col-10">
       <div class="row" style="margin-right:50px">
         <table class="table table-bordered table-dark" style="margin:20px;">
           <thead>
@@ -209,7 +209,6 @@
                   </div>
               </div>
       </div>
-
 
       <div class="col-6 border">
         <!-- style="border: 1px solid;" -->

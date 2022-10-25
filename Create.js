@@ -77,10 +77,14 @@ const data = [];
 
   var obj = data[0];
   const name = datasetName + ""
-  mongoose.deleteModel(name);
-  const Schem = mongoose.model(name, new mongoose.Schema( obj,
-    {versionKey:false, strict:false}));
 
+try{
+    mongoose.deleteModel(name)
+}catch (error){
+  console.log("unable to update");
+}
+  const Schem = mongoose.model(name, new mongoose.Schema( obj,
+  {versionKey:false, strict:false}));
   var i = 1;
   while (i < data.length){
   obj = data[i];

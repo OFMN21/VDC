@@ -1,0 +1,14 @@
+_id,CovidCases,MonthN,MonthS
+Number,Number, Number, String
+1,100000,1,Feb
+2,463,1,Feb
+3,364,1,Feb
+4,364,1,Apr
+5,364,1,May
+6,364,6,Jun
+7,643,6,Jul
+8,346,6,Aug
+9,463,9,Sep
+10,344,10,Oct
+11,434,11,Nov
+12,364,12,Dec

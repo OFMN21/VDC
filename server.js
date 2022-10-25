@@ -80,7 +80,7 @@ app.post("/filter", async function(req, res){
 
     x = array[0];
     y = array[1];
-
+    console.log(x, y);
   res.redirect("/chartpage");
 });
 

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>add and remove data</title>
 
+  <link rel="" href="/css/master.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="stylesheet" href="css/sidebar-menu.css">
   <link rel="stylesheet" href="css/homepage.css">
@@ -57,26 +58,26 @@
     <div class="row">
       <div class="col-3">
 
-              <!-- ########### column #1 ############## -->
-              <!-- ######### Sidebar ############# -->
-              <!-- overflow: auto -->
-              <ul style="margin-top: 67px;" class="sidebar-menu vertical-menu">
-                <li class="sidebar-header">
-                  <h3 style="color:white; margin-left:30px">Datasets</h3>
-                </li>
-                <li>
-                  <div class="box" style="height: 475px; overflow: auto " >
-                    <select placeholder="Chart type" name="p3" style="width:200px;margin: 15px;display:inline; " class="form-select" aria-label="Default select example">
-                      <option selected>Select Chart type</option>
-                      <option value="Bar">Bar</option>
-                      <option value="Pie">Pie</option>
-                      <option value="Line">Line</option>
-                    </select>
+        <!-- ########### column #1 ############## -->
+        <!-- ######### Sidebar ############# -->
+        <!-- overflow: auto -->
+        <ul style="margin-top: 67px;" class="sidebar-menu vertical-menu">
+          <li class="sidebar-header">
+            <h3 style="color:white; margin-left:30px">Datasets</h3>
+          </li>
+          <li>
+            <div class="box" style="height: 475px; overflow: auto ">
+              <select placeholder="Chart type" name="p3" style="width:200px;margin: 15px;display:inline; " class="form-select" aria-label="Default select example">
+                <option selected>Select Chart type</option>
+                <option value="Bar">Bar</option>
+                <option value="Pie">Pie</option>
+                <option value="Line">Line</option>
+              </select>
 
-                  </div>
-                </li>
+            </div>
+          </li>
 
-              </ul>
+        </ul>
 
       </div>
       <div class="col-9">
@@ -86,24 +87,27 @@
 
         <div class="inputBox">
           <input type="number" class="form-control" style="width:200px; display:inline" id="inputdata">
-          <input type="text"  placeholder="Color" class="form-control" style="width:200px; display:inline" id="inputcolor">
-          <input type="text" class="form-control"  style="width:200px; display:inline" placeholder="label" id="inputlabel">
-          <button onclick="updateChart()" id="insertdata"class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button>
+          <input type="text" placeholder="Color" class="form-control" style="width:200px; display:inline" id="inputcolor">
+          <input type="text" class="form-control" style="width:200px; display:inline" placeholder="label" id="inputlabel">
+          <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button>
           <hr>
           <input type="number" class="form-control" style="width:200px; display:inline" id="filterdatanumber">
           <button onclick="filterChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Filter Chart</button>
           <button onclick="resetChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Reset Chart</button>
-
+          
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script type="">
-      <% console.log(x, y) %>
-          var x = [<%= x %>]
-          var y = [<%= y %>]
-          const originalData = x ;
-          const originalLabels = y ;
+
+
+
+          var label = <%- JSON.stringify(x)%>
+          var data = [<%= y %>]
+          const originalLabels = label;
+          const originalData = data ;
+
           const ctx = document.getElementById('myChart').getContext('2d');
           const myChart = new Chart(ctx, {
             type: 'bar',
@@ -194,7 +198,7 @@
     </div>
 
 
-    </div>
+  </div>
 
 </body>
 

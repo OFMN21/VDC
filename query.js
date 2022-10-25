@@ -86,8 +86,11 @@ for (let i = 0; i < filtered.length; i++) {
   x.push(obj['_id'])
   y.push(obj['y'])
 }
-arr.push(y)
+
 arr.push(x)
+arr.push(y)
+
+
 return arr;
 
 }
