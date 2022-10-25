@@ -67,11 +67,13 @@
           </li>
           <li>
             <div class="box" style="height: 475px; overflow: auto ">
-              <select placeholder="Chart type" name="p3" style="width:200px;margin: 15px;display:inline; " class="form-select" aria-label="Default select example">
+
+
+              <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select" >
                 <option selected>Select Chart type</option>
-                <option value="Bar">Bar</option>
-                <option value="Pie">Pie</option>
-                <option value="Line">Line</option>
+                <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
               </select>
 
             </div>
@@ -98,16 +100,15 @@
 
 
         </div>
-
         <button onclick="download()" class="btn btn-secondary" style="margin-top:150px; margin-right:900px">Download</button>
-
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script type="">
 
+        document.getElementById("my-select").addEventListener("change", changeChart);
 
-
+
           var label = <%- JSON.stringify(x)%>
           var data = [<%= y %>]
           const originalLabels = label;
@@ -202,18 +203,41 @@
            function download(){
             const imageLink =  document.createElement('a');
             const canvas =  document.getElementById('myChart');
-            imageLink.download = 'canvas.png';
+            imageLink.download = 'chart.png';
             imageLink.href =  canvas.toDataURL('image/png',1);
             imageLink.click();
           }
 
+
+          function changeChart(){
+            var value = this.value;
+            console.log(value);
+            switch (value) {
+              case 'line':
+                  const updatetype = 'line';
+                  myChart.config.type = updatetype;
+                  myChart.update();
+                  break;
+              case 'bar':
+                  const updatetype2 = 'bar';
+                  myChart.config.type = updatetype2;
+                  myChart.update();
+                  break;
+              case 'pie':
+                  const updatetype3 = 'pie';
+                  myChart.config.type = updatetype3;
+                  myChart.update();
+                  break;
+              default:
+                console.log("wrong chart type");
+            }
+          };
+
+
 
         </script>
-
       </div>
     </div>
-
-
   </div>
 
 </body>
