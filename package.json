@@ -32,7 +32,7 @@
     "javascript-stringify": "^2.1.0",
     "method-override": "^3.0.0",
     "mongodb": "^4.10.0",
-    "mongoose": "^6.6.5",
+    "mongoose": "^6.7.0",
     "mongoose-encryption": "^2.1.2",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",

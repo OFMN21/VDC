@@ -137,43 +137,45 @@
                   <div class="row" style="width:458px; margin-bottom:5px;">
                     <!-- ###### row number 2 ###### -->
                     <p>Add aggrigation function</p>
-                    <select name="p1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <% tbl.forEach(function(column) {%>
-                      <option><%= column%></option>
-                      <%})%>
-                    </select>
-                    <select name="p2" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <% tbl.forEach(function(column) {%>
-                      <option><%= column%></option>
-                      <%})%>
-                    </select>
-                    <select name="p3" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                    <select name="a1" style="width:100px; display:inline; margin-left:px;" class="form-select" aria-label="Default select example">
                       <option selected></option>
                       <option value="Pavg">Avg</option>
                       <option value="Psum">Sum</option>
                       <option value="Pcount">Count</option>
                     </select>
+                    <select name="a2" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                      <option selected></option>
+                      <% tbl.forEach(function(column) {%>
+                      <option><%= column%></option>
+                      <%})%>
+                    </select>
+                    <select name="a3" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                      <option selected></option>
+                      <% tbl.forEach(function(column) {%>
+                      <option><%= column%></option>
+                      <%})%>
+                    </select>
                   </div>
                   <!-- function name + apply button -->
                   <div class="row" style="width:458px; margin-bottom:5px;">
                     <!-- ###### row number 4 ###### -->
-                    <input name="functionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <input name="FunctionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <button type="submit" style="width:130px; margin-left:20px;" class="btn btn-outline-primary"> Add function </button>
+
                   </div>
                   <!-- Defining population -->
                   <div class="row" style="width:458px; margin-bottom:10px;">
                     <!-- ###### row number 6 ###### -->
                     <p>define your population</p>
                     <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
-                      <select name="p4" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
+                      <select name="p1" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
                         <option selected></option>
                         <% tbl.forEach(function(column) {%>
                         <option><%= column%></option>
                         <%})%>
                       </select>
 
-                      <select name="p5" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
+                      <select name="p2" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
                         <option selected></option>
                         <option> > </option>
                         <option>
@@ -181,23 +183,23 @@
                         <option>=</option>
                         <option>!=</option>
                       </select>
-                      <input name="value1" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                      <input name="p3" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     </div>
                     <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
-                      <select name="p6" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
+                      <select name="p4" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
                         <option selected></option>
                         <option>AND</option>
                         <option>OR</option>
                       </select>
                     </div>
-                    <select name="p7" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
+                    <select name="p5" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
                       <option selected></option>
                       <% tbl.forEach(function(column) {%>
                       <option><%= column%></option>
                       <%})%>
                     </select>
 
-                    <select name="p8" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
+                    <select name="p6" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
                       <option selected></option>
                       <option> > </option>
                       <option>
@@ -205,7 +207,7 @@
                       <option>=</option>
                       <option>!=</option>
                     </select>
-                    <input name="value2" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <input name="p7" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 
                   </div>
               </div>
@@ -223,7 +225,7 @@
             <div class="container">
               <label style="color:grey; margin-left:-60px">X-Axis
                 <select name="q1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
-                  <option  style="color:grey" selected></option>
+                  <option style="color:grey" selected></option>
                   <% tbl.forEach(function(column) {%>
                   <option><%= column%></option>
                   <%})%>
@@ -240,7 +242,7 @@
 
               </label>
 
-              </div>
+            </div>
 
           </div>
 
