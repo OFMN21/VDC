@@ -127,7 +127,7 @@ app.post("/create", upload.single('file'), function(req, res) {
   res.redirect("/homepage");
 });
 
-app.post("/delete",function(req, res) {
+app.post("/delete", function(req, res) {
   User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: dsDelete } }, function(err, foundList) {});
   deleteDataset(dsDelete, currentUser)
   dsDelete = null;
@@ -175,7 +175,7 @@ app.post("/view", function(req, res) {
 
 });
 
-app.get("/homepage",function(req, res) {
+app.get("/homepage", function(req, res) {
 
   if (req.isAuthenticated()) {
     User.findOne({
