@@ -21,8 +21,8 @@
     <header class="p-3 text-bg-dark">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="#" class="d-block link-dark text-decoration-none "  aria-expanded="false">
-            <img src="logo.png" alt="mdo" width="32" height="32" >
+          <a href="#" class="d-block link-dark text-decoration-none " aria-expanded="false">
+            <img src="logo.png" alt="mdo" width="32" height="32">
           </a>
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           </ul>
@@ -49,11 +49,13 @@
             <div class="box" style="height: 475px; overflow: auto ">
 
 
-              <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select" >
+              <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select">
                 <option selected>Select Chart type</option>
                 <option value="bar">Bar Chart</option>
                 <option value="line">Line Chart</option>
                 <option value="pie">Pie Chart</option>
+                <option value="scatter">scatter Chart</option>
+                <option value="doughnut">doughnut Chart</option>
               </select>
 
             </div>
@@ -87,7 +89,7 @@
 
         <script type="">
 
-        document.getElementById("my-select").addEventListener("change", changeChart);
+          document.getElementById("my-select").addEventListener("change", changeChart);
 
 
           var label = <%- JSON.stringify(x)%>
@@ -209,8 +211,19 @@
                   myChart.config.type = updatetype3;
                   myChart.update();
                   break;
+
+              case 'doughnut':
+                  const updatetype4 = 'doughnut';
+                  myChart.config.type = updatetype4;
+                  myChart.update();
+                  break;
+              case 'scatter':
+                  const updatetype5 = 'scatter';
+                  myChart.config.type = updatetype5;
+                  myChart.update();
+                  break;
               default:
-                console.log("wrong chart type");
+                    console.log("wrong chart type");
             }
           };
 
