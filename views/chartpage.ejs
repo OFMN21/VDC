@@ -10,33 +10,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="stylesheet" href="css/sidebar-menu.css">
   <link rel="stylesheet" href="css/homepage.css">
+  <link rel="stylesheet" href="css/chartpage.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Helvetica, sans-serif;
-    }
-
-    body {
-      /* background: #333; */
-    }
-
-    .chartBox {
-      padding: 20px;
-      width: 700px;
-
-    }
-
-    .inputdesign {
-      border: solid 1 #333;
-      padding: 5px 10px;
-      margin: 5px;
-    }
-  </style>
 </head>
 
 <body>
@@ -44,6 +21,9 @@
     <header class="p-3 text-bg-dark">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="#" class="d-block link-dark text-decoration-none " aria-expanded="false">
+            <img src="logo.png" alt="mdo" width="32" height="32">
+          </a>
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           </ul>
           <div class="text-end">
@@ -63,17 +43,19 @@
         <!-- overflow: auto -->
         <ul style="margin-top: 67px;" class="sidebar-menu vertical-menu">
           <li class="sidebar-header">
-            <a href="/homepage"><h3 style="color:white; margin-left:30px">Datasets</h3></a>
+            <h3 style="color:white; margin-left:30px">Datasets</h3>
           </li>
           <li>
             <div class="box" style="height: 475px; overflow: auto ">
 
 
-              <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select" >
+              <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select">
                 <option selected>Select Chart type</option>
                 <option value="bar">Bar Chart</option>
                 <option value="line">Line Chart</option>
                 <option value="pie">Pie Chart</option>
+                <option value="scatter">scatter Chart</option>
+                <option value="doughnut">doughnut Chart</option>
               </select>
 
             </div>
@@ -102,11 +84,12 @@
         </div>
         <button onclick="download()" class="btn btn-secondary" style="margin-top:150px; margin-right:900px">Download</button>
 
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script type="">
 
-        document.getElementById("my-select").addEventListener("change", changeChart);
+          document.getElementById("my-select").addEventListener("change", changeChart);
 
 
           var label = <%- JSON.stringify(x)%>
@@ -228,8 +211,19 @@
                   myChart.config.type = updatetype3;
                   myChart.update();
                   break;
+
+              case 'doughnut':
+                  const updatetype4 = 'doughnut';
+                  myChart.config.type = updatetype4;
+                  myChart.update();
+                  break;
+              case 'scatter':
+                  const updatetype5 = 'scatter';
+                  myChart.config.type = updatetype5;
+                  myChart.update();
+                  break;
               default:
-                console.log("wrong chart type");
+                    console.log("wrong chart type");
             }
           };
 
