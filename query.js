@@ -12,8 +12,8 @@ var arr = []
 
 
 
+async function query(DS,filter,q1,q2,q3){
 
-async function query(dataSetName,q1,q2,q3){
 arr.length = 0;
 var obj;
 var x = [];
@@ -25,50 +25,50 @@ const grouping ={}; grouping[q1]=q1; grouping[q2] = q2;
 switch (q3) {
   case 'Avg':
     console.log('AVG');
-    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
-                                                                      [{$group:
-                                                                       {_id:'$'+grouping[q1],
-                                                                        y:{$avg:'$'+grouping[q2]}}}])
-                                                                       .toArray()
+    filtered = await DS.aggregate(
+                                  [{$group:
+                                  {_id:'$'+grouping[q1],
+                                  y:{$avg:'$'+grouping[q2]}}}])
+                                  .toArray()
     break;
   case 'Count':
     console.log('count');
-    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
-                                                                    [{$group:
-                                                                     {_id:'$'+grouping[q1],
-                                                                      y:{$sum:'$'+grouping[q2]}}}])
-                                                                     .toArray()
+    filtered = await DS.aggregate(
+                                  [{$group:
+                                  {_id:'$'+grouping[q1],
+                                  y:{$sum:'$'+grouping[q2]}}}])
+                                  .toArray()
   break;
   case 'Sum':
     console.log('sum');
-    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
-                                                                      [{$group:
-                                                                       {_id:'$'+grouping[q1],
-                                                                        y:{$sum:'$'+grouping[q2]}}}])
-                                                                       .toArray()
+    filtered = await DS.aggregate(
+                                  [{$group:
+                                  {_id:'$'+grouping[q1],
+                                  y:{$sum:'$'+grouping[q2]}}}])
+                                  .toArray()
     break;
     case 'Max':
       console.log('MAX');
-      filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
-                                                                        [{$group:
-                                                                         {_id:'$'+grouping[q1],
-                                                                          y:{$max:'$'+grouping[q2]}}}])
-                                                                         .toArray()
+      filtered = await DS.aggregate(
+                                    [{$group:
+                                    {_id:'$'+grouping[q1],
+                                    y:{$max:'$'+grouping[q2]}}}])
+                                    .toArray()
       break;
       case 'Min':
         console.log('MIN');
-        filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
+        filtered = await DS.aggregate(
                                                                           [{$group:
                                                                            {_id:'$'+grouping[q1],
                                                                             y:{$min:'$'+grouping[q2]}}}])
                                                                            .toArray()
         break;
   default:
-    filtered = await mongoose.connection.db.collection(dataSetName).aggregate(
-                                                                            [
-                                                                              {$project: projection}
-                                                                            ]
-                                                                          ).toArray()
+    filtered = await DS.aggregate([
+                              {$project: projection},
+                              {$match: filter}
+                              ]
+                              ).toArray()
 }
 if(q3 == ""){
   for (let i = 0; i < filtered.length; i++) {

@@ -24,8 +24,8 @@
     <header class="p-3 text-bg-dark">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="#" class="d-block link-dark text-decoration-none "  aria-expanded="false">
-            <img src="logo.png" alt="mdo" width="100" height="50" >
+          <a href="#" class="d-block link-dark text-decoration-none " aria-expanded="false">
+            <img src="logo.png" alt="mdo" width="100" height="50">
           </a>
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           </ul>
@@ -144,19 +144,19 @@
                   <div class="row" style="width:458px; margin-bottom:5px;">
                     <!-- ###### row number 2 ###### -->
                     <p>Add aggrigation function</p>
-                    <select name="a1" style="width:100px; display:inline; margin-left:px;" class="form-select" aria-label="Default select example">
+                    <select name="a[0]" style="width:100px; display:inline; margin-left:px;" class="form-select" aria-label="Default select example">
                       <option selected></option>
                       <option value="Pavg">Avg</option>
                       <option value="Psum">Sum</option>
                       <option value="Pcount">Count</option>
                     </select>
-                    <select name="a2" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                    <select name="a[1]" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
                       <option selected></option>
                       <% tbl.forEach(function(column) {%>
                       <option><%= column%></option>
                       <%})%>
                     </select>
-                    <select name="a3" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                    <select name="a[2]" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
                       <option selected></option>
                       <% tbl.forEach(function(column) {%>
                       <option><%= column%></option>

@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require("passport");
 const create = require("./create");
 const query = require("./query");
+const population = require("./population");
 const deleteDataset = require("./delete")
 const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
@@ -71,13 +72,19 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 app.post("/filter", async function(req, res){
 
+    var filteredDS = await mongoose.connection.db.collection(dsName);
+    var obj =  population.filter(
+      //filteredDS,
+      req.body.p
+    );
+    console.log(obj);
     var array = await query.query(
-    dsName,
+    filteredDS,
+    obj,
     req.body.q1,
     req.body.q2,
     req.body.q3
   );
-
     x = array[0];
     y = array[1];
     console.log(x, y);
