@@ -11,14 +11,18 @@ app.use(bodyParser.urlencoded({
 
 
 function filter(p){
+var  obj;
 console.log(p);
 var po = p[0]
-var  obj = {
-      $and:[
-        {p[0].: {$gt: 5}}
-      ]
-  }
-  return obj;
+
+if(p[3] == AND){
+      obj = {
+        $and:[
+          {monthN: {$gt: 5}}
+        ]
+    }
+}
+return obj;
 }
 
 exports.filter = filter;
