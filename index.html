@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="css/homepage.css">
   <link rel="stylesheet" href="css/chartpage.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
 
 </head>
@@ -59,12 +58,19 @@
                 <option value="doughnut">doughnut Chart</option>
               </select>
 
-                <!-- color picker -->
-              <input type="color" class="form-control form-control-color" id="colorPicker" value="#563d7c" >
+
+<div >
+  <input onchange="updateChart()" type="color" class="form-control form-control-color" value="#009911" id="chartColor">
+
+</div>
 
 
             </div>
+
+
           </li>
+
+
 
         </ul>
 
@@ -74,24 +80,14 @@
           <canvas id="myChart"></canvas>
 
         </div>
-        <input type="color" id ="colorPicker" hidden/>
+
         <div class="inputBox">
           <input type="number" class="form-control" style="width:200px; display:inline" id="inputdata">
           <input type="text" placeholder="Color" class="form-control" style="width:200px; display:inline" id="inputcolor">
           <input type="text" class="form-control" style="width:200px; display:inline" placeholder="label" id="inputlabel">
           <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button>
           <hr>
-          <input type="number" class="form-control" style="width:100px; display:inline" id="filterdatanumber">
-          <select id="filter" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
-            <option selected></option>
-            <option value="greater">></option>
-            <option value="smaller"><</option>
-            <option value="greaterOr">>=</option>
-            <option value="smallerOr"><=</option>
-            <option value="equal">=</option>
-
-
-          </select>
+          <input type="number" class="form-control" style="width:200px; display:inline" id="filterdatanumber">
           <button onclick="filterChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Filter Chart</button>
           <button onclick="resetChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Reset Chart</button>
 
@@ -104,20 +100,19 @@
 
         <script type="">
 
-          document.getElementById("my-select").addEventListener("change", changeChart);
-          document.getElementById("filter").addEventListener("change", filterChart);
-          
+          var chartColor = document.getElementById('chartColor');
+
 
+          document.getElementById("my-select").addEventListener("change", changeChart);
 
 
           var label = <%- JSON.stringify(x)%>
           var data = [<%= y %>]
           const originalLabels = label;
           const originalData = data ;
-
-
-          var ctx = document.getElementById('myChart').getContext('2d');
-          var myChart = new Chart(ctx, {
+          console.log(chartColor.value);
+          const ctx = document.getElementById('myChart').getContext('2d');
+          const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
               labels: originalLabels,
@@ -125,7 +120,7 @@
                 label: '# of Votes',
                 data: originalData,
                 backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
+                  chartColor.value,
                   'rgba(54, 162, 235, 0.2)',
                   'rgba(255, 206, 86, 0.2)',
                   'rgba(75, 192, 192, 0.2)',
@@ -133,7 +128,7 @@
                   'rgba(255, 159, 64, 0.2)'
                 ],
                 borderColor: [
-                  'rgba(255, 99, 132, 1)',
+                  chartColor.value,
                   'rgba(54, 162, 235, 1)',
                   'rgba(255, 206, 86, 1)',
                   'rgba(75, 192, 192, 1)',
@@ -152,69 +147,38 @@
             }
           });
 
-
-
-
-
-
-
-
           function updateChart() {
             const inputdata = document.getElementById('inputdata');
             const inputcolor = document.getElementById('inputcolor');
             const inputlable = document.getElementById('inputlabel');
+            var updateColors = [
+              chartColor.value,
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ];
             myChart.data.datasets[0].data.push(inputdata.value);
             myChart.data.datasets[0].backgroundColor.push(inputcolor.value);
             myChart.data.datasets[0].borderColor.push(inputcolor.value);
             myChart.data.labels.push(inputlabel.value);
 
+            chart.data.datasets[1].backgroundColor = updateColors;
+            chart.data.datasets[1].borderColor = updateColors;
+
+
             myChart.update()
 
           }
-
-
           // function filterChart
           function filterChart() {
             myChart.data.datasets[0].data = originalData;
             myChart.data.labels = originalLabels;
             const filterdatanumber = document.getElementById('filterdatanumber').value;
-            var filterData=null;
             // filter array.filter command
-            var value = this.value;
-            console.log(value);
-            switch (value) {
-              case 'greater':
-                      filterData = myChart.data.datasets[0].data.filter(value => value >
-                      filterdatanumber);
-
-                  break;
-              case 'smaller':
-                      filterData = myChart.data.datasets[0].data.filter(value => value <
-                      filterdatanumber);
-
-                  break;
-              case 'greaterOr':
-                       filterData = myChart.data.datasets[0].data.filter(value => value >=
-                       filterdatanumber);
-
-                  break;
-
-              case 'smallerOr':
-                        filterData = myChart.data.datasets[0].data.filter(value => value <=
-                        filterdatanumber);
-
-                  break;
-              case 'equal':
-                      filterData = myChart.data.datasets[0].data.filter(value => value ==
-                      filterdatanumber);
-
-                  break;
-              default:
-                    console.log("wrong");
-            }
-
-            // const filterData = myChart.data.datasets[0].data.filter(value => value >
-
+            const filterData = myChart.data.datasets[0].data.filter(value => value >
+              filterdatanumber);
             // create 2 new arrays for the labels + colors.
             const filterLabels = [];
             const filterColors = [];
@@ -299,3 +263,235 @@
 </body>
 
 </html>
+
+===========================
+
+how to give the user the ability to change the chart js colors (ex: in bar chart change the bar color)
+
+this is my code
+
+```
+
+```
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-3">
+
+        <!-- ########### column #1 ############## -->
+        <!-- ######### Sidebar ############# -->
+        <!-- overflow: auto -->
+        <ul style="margin-top: 67px;" class="sidebar-menu vertical-menu">
+          <li class="sidebar-header">
+            <h3 style="color:white; margin-left:30px">Datasets</h3>
+          </li>
+          <li>
+            <div class="box" style="height: 475px; overflow: auto ">
+
+
+              <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select">
+                <option selected>Select Chart type</option>
+                <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="scatter">scatter Chart</option>
+                <option value="doughnut">doughnut Chart</option>
+              </select>
+
+                <!-- color picker -->
+              <input type="color" class="form-control form-control-color" id="colorPicker" value="#563d7c" >
+
+
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+      <div class="col-9">
+        <div class="chartBox">
+          <canvas id="myChart"></canvas>
+
+        </div>
+        <input type="color" id ="colorPicker" hidden/>
+        <div class="inputBox">
+          <input type="number" class="form-control" style="width:200px; display:inline" id="inputdata">
+          <input type="text" placeholder="Color" class="form-control" style="width:200px; display:inline" id="inputcolor">
+          <input type="text" class="form-control" style="width:200px; display:inline" placeholder="label" id="inputlabel">
+          <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button>
+          <hr>
+          <input type="number" class="form-control" style="width:200px; display:inline" id="filterdatanumber">
+          <button onclick="filterChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Filter Chart</button>
+          <button onclick="resetChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Reset Chart</button>
+
+
+        </div>
+        <button onclick="download()" class="btn btn-secondary" style="margin-top:150px; margin-right:900px">Download</button>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script type="">
+
+          document.getElementById("my-select").addEventListener("change", changeChart);
+
+
+          var label = <%- JSON.stringify(x)%>
+          var data = [<%= y %>]
+          const originalLabels = label;
+          const originalData = data ;
+
+
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: originalLabels,
+              datasets: [{
+                label: '# of Votes',
+                data: originalData,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+
+
+
+
+
+
+
+
+          function updateChart() {
+            const inputdata = document.getElementById('inputdata');
+            const inputcolor = document.getElementById('inputcolor');
+            const inputlable = document.getElementById('inputlabel');
+            myChart.data.datasets[0].data.push(inputdata.value);
+            myChart.data.datasets[0].backgroundColor.push(inputcolor.value);
+            myChart.data.datasets[0].borderColor.push(inputcolor.value);
+            myChart.data.labels.push(inputlabel.value);
+
+            myChart.update()
+
+          }
+
+
+          // function filterChart
+          function filterChart() {
+            myChart.data.datasets[0].data = originalData;
+            myChart.data.labels = originalLabels;
+            const filterdatanumber = document.getElementById('filterdatanumber').value;
+            // filter array.filter command
+            const filterData = myChart.data.datasets[0].data.filter(value => value >
+              filterdatanumber);
+            // create 2 new arrays for the labels + colors.
+            const filterLabels = [];
+            const filterColors = [];
+            // for loop + loop through the array get the matching value index0f()
+            let i = 0;
+            for (i; i < filterData.length; i++) {
+              const result = myChart.data.datasets[0].data.indexOf(filterData[i]);
+              const labelresult = myChart.data.labels[result];
+              const colorsresult = myChart.data.datasets[0].backgroundColor[result];
+              //push this into the new array
+              filterLabels.push(labelresult);
+              filterColors.push(colorsresult);
+
+
+            }
+            // reassign the array into the chart.
+            myChart.data.datasets[0].data = filterData;
+            myChart.data.labels = filterLabels;
+            myChart.data.datasets[0].backgroundColor = filterColors;
+
+            // update chart
+            myChart.update()
+          }
+          function resetChart() {
+            myChart.data.datasets[0].data = originalData;
+            myChart.data.labels = originalLabels;
+            myChart.update();
+          }
+
+
+           function download(){
+            const imageLink =  document.createElement('a');
+            const canvas =  document.getElementById('myChart');
+            imageLink.download = 'chart.png';
+            imageLink.href =  canvas.toDataURL('image/png',1);
+            imageLink.click();
+          }
+
+
+          function changeChart(){
+            var value = this.value;
+            console.log(value);
+            switch (value) {
+              case 'line':
+                  const updatetype = 'line';
+                  myChart.config.type = updatetype;
+                  myChart.update();
+                  break;
+              case 'bar':
+                  const updatetype2 = 'bar';
+                  myChart.config.type = updatetype2;
+                  myChart.update();
+                  break;
+              case 'pie':
+                  const updatetype3 = 'pie';
+                  myChart.config.type = updatetype3;
+                  myChart.update();
+                  break;
+
+              case 'doughnut':
+                  const updatetype4 = 'doughnut';
+                  myChart.config.type = updatetype4;
+                  myChart.update();
+                  break;
+              case 'scatter':
+                  const updatetype5 = 'scatter';
+                  myChart.config.type = updatetype5;
+                  myChart.update();
+                  break;
+              default:
+                    console.log("wrong chart type");
+            }
+          };
+
+
+
+        </script>
+      </div>
+    </div>
+  </div>
+
+</body>
+```
+
+
+
+i want to give the user the ability to select the bar and change its color
+[![the output](https://i.stack.imgur.com/HjaiA.png)](https://i.stack.imgur.com/HjaiA.png)
