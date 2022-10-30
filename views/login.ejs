@@ -38,8 +38,7 @@
     <div class="row align-items-center g-lg-5 py-5">
       <div class="col-lg-7 text-center text-lg-start">
         <h1 class="display-4 fw-bold lh-1 mb-3">Visualization of data correlation</h1>
-        <p class="col-lg-10 fs-4">A web application that aims to simplify data by displaying it in simple charts, allowing users to easily identify correlations between individual attributes All of this is accomplished by allowing the user to define
-          a dataset, a population, and a query to retrieve population information.</p>
+        <p class="col-lg-10 fs-4">A web application tool that helps users to simplify data by vizualizing it in beauteful charts.<br> By choosing population, users will be able to identify correlations between individual attributes.</p>
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
 
@@ -59,18 +58,13 @@
             <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
             <label for="floatingPassword">Password</label>
           </div>
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me"> Remember me
-            </label>
-          </div>
           <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
           <p style="text-align:center ">Forgot password? <a class="hide_UnderLine" href="#">here</a></p>
           <p style="text-align:center ">Don't have an account? <a class="hide_UnderLine" href="/register">Sign Up</a></p>
 
           <hr class="my-4">
 
-          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small> <!-- remove?? -->
+          <small class="text-muted">By clicking Sign up, you will move to the sign up page.</small> <!-- remove?? -->
         </form>
       </div>
     </div>
@@ -80,19 +74,8 @@
 
 
   <div class="container px-4 py-5" id="hanging-icons">
-    <h2 class="pb-2 border-bottom">Hanging icons</h2>
+    <h2 class="pb-2 border-bottom">Features</h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-      <div class="col d-flex align-items-start">
-        <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-          <svg class="bi" width="1em" height="1em">
-            <use xlink:href="#toggles2" />
-          </svg>
-        </div>
-        <div>
-          <h2>Featured title</h2>
-          <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-        </div>
-      </div>
       <div class="col d-flex align-items-start">
         <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
           <svg class="bi" width="1em" height="1em">
@@ -100,8 +83,9 @@
           </svg>
         </div>
         <div>
-          <h2>Save Your Work</h2>
-          <p>You will definitely want to save your work while working; this feature saves your work so that you can return to it later.</p>
+          <h2>manage your datasets</h2>
+          <p>You will be able to save as many datasets as you want, and use them whenever you like!<br>
+            A sidebar will contain every dataset you uploaded, from there you can upload, delete or use your datasets.</p>
         </div>
       </div>
       <div class="col d-flex align-items-start">
@@ -111,8 +95,22 @@
           </svg>
         </div>
         <div>
-          <h2>Clear and Customizable Data Visualization</h2>
-          <p>We use data visualization tools like charts and graphs, which can be customized to make them more understandable and colorful.</p>
+          <h2>Great visualization of data</h2>
+          <p> To have the best user experince,<br>
+            Our tool has five different charts to choose from.<br>
+            Not only that, but you will be able to filter and add data in the chart in a very user friendly way!</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em">
+            <use xlink:href="#toggles2" />
+          </svg>
+        </div>
+        <div>
+          <h2>Secure tool</h2>
+          <p>VDC will keep you passwords hashed in the database <br>
+            We also use sessions to insure that the user is secure and has the safest experince using our tool</p>
         </div>
       </div>
     </div>
@@ -127,11 +125,11 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingOne">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            Why can't upload my data file?
+            What can I upload?
           </button>
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Check that the uploaded file format matches the required format; here is an example of a completed data file.
+          <div class="accordion-body">Our tool reads .csv files, please make sure that you're uploading the right format
             <!--move to anthor page explains the format-->
           </div>
         </div>
@@ -139,11 +137,14 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-            How to retrive an archive a dataset?
+            How can I upload my file?
           </button>
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">Simply by going to the archive list and then select the dataset ,press the dearchive button.</div>
+          <div class="accordion-body">First make sure you file ends with ".csv".<br>
+            Then make sure that the first contains your column names.<br>
+            Second row should be data types with this syntax: "_id" (always first),"Number", "String", "Double".<br>
+            After you meet all requirements click on the upload button on the side bar and choose your file name</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -153,7 +154,9 @@
           </button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">You can change the chart type ,color and the font color and style</div>
+          <div class="accordion-body">You will be able to choose a population by filling the population form<br>
+            Then you can choose what columns you like to be vizualized<br>
+            finally you can choose chart types, add or filter columns, change color and finally download the chart</div>
         </div>
       </div>
     </div>
@@ -162,13 +165,7 @@
   <!-- Footer -->
   <div class="container">
     <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="Homepage.html" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#hanging-icons" class="nav-link px-2 text-muted">Features</a></li>
-        <li class="nav-item"><a href="#accordionFlushExample" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-      </ul>
-      <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
+      <p class="text-center text-muted">VDC - King Saud University</p>
     </footer>
   </div>
 
