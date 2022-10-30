@@ -28,31 +28,46 @@ switch (q3) {
   case 'Avg':
       console.log('AVG');
       filtered = await DS.aggregate(
-                                    [{$group:
-                                    {_id:'$'+grouping[q1],
-                                    y:{$avg:'$'+grouping[q2]}}}])
-                                    .toArray()
+                                    [
+                                      {$match: filter},
+                                      {$group:
+                                      {_id:'$'+grouping[q1],
+                                      y:{$avg:'$'+grouping[q2]}}}
+                                    ])
+                                      .toArray()
     break;
   case 'Count':
       console.log('count');
       filtered = await DS.aggregate(
-                                    [{$group:
-                                    {_id:'$'+grouping[q1],
-                                    y:{$sum:'$'+grouping[q2]}}}])
+                                    [
+                                      {$match: filter},
+                                      {
+                                        $group:
+                                        {
+                                          _id:'$'+grouping[q1],
+                                          y:{$count:{}}
+                                        }
+                                      }
+                                    ])
                                     .toArray()
   break;
   case 'Sum':
       console.log('sum');
       filtered = await DS.aggregate(
-                                    [{$group:
-                                    {_id:'$'+grouping[q1],
-                                    y:{$sum:'$'+grouping[q2]}}}])
+                                    [
+                                      {$match: filter},
+                                    {$group:
+                                      {_id:'$'+grouping[q1],
+                                      y:{$sum:'$'+grouping[q2]}}}
+                                    ])
                                     .toArray()
     break;
     case 'Max':
         console.log('MAX');
         filtered = await DS.aggregate(
-                                      [{$group:
+                                      [
+                                        {$match: filter},
+                                        {$group:
                                       {_id:'$'+grouping[q1],
                                       y:{$max:'$'+grouping[q2]}}}])
                                       .toArray()
@@ -60,7 +75,9 @@ switch (q3) {
       case 'Min':
         console.log('MIN');
         filtered = await DS.aggregate(
-                                      [{$group:
+                                      [
+                                        {$match: filter},
+                                        {$group:
                                        {_id:'$'+grouping[q1],
                                        y:{$min:'$'+grouping[q2]}}}])
                                         .toArray()
