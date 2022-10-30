@@ -21,7 +21,9 @@ var y = [];
 var filtered;
 const projection = { _id: 0 }; projection[q1] = 1; projection[q2] = 1;
 const grouping ={}; grouping[q1]=q1; grouping[q2] = q2;
-
+if(filter == undefined){
+  filter = {}
+}
 switch (q3) {
   case 'Avg':
       console.log('AVG');

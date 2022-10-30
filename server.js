@@ -74,7 +74,6 @@ app.post("/filter", async function(req, res){
 
     var filteredDS = await mongoose.connection.db.collection(dsName);
     var obj =  population.filter(
-      //filteredDS,
       req.body.p
     );
     console.log(obj);
