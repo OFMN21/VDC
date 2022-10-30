@@ -67,8 +67,8 @@ switch (q3) {
         break;
   default:
         filtered = await DS.aggregate([
-                                      {$project: projection},
-                                      {$match: filter}
+                                      {$match: filter},
+                                      {$project: projection}
                                       ]).toArray()
 }
 if(q3 == ""){
