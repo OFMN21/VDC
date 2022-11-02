@@ -20,6 +20,7 @@ var columnNames;
 var dsDelete;
 var currentUser;
 var message = 'undefined';
+var messageType = 'undefined';
 var storage = multer.diskStorage({
   destination: (req, file, callBack) => {
     callBack(null, './uploads/')
@@ -73,19 +74,32 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 app.post("/filter", async function(req, res){
 
     var filteredDS = await mongoose.connection.db.collection(dsName);
-    var obj =  population.filter(
+    var pop =  population.filter(
       req.body.p
     );
-    console.log(obj);
+    console.log(pop);
+    try{
     var array = await query.query(
     filteredDS,
-    obj,
+    pop,
     req.body.q1,
     req.body.q2,
     req.body.q3
   );
+    }catch{
+      message = "Query input is not valid";
+      messageType = "alert-danger"
+      res.redirect("/homepage");
+      return;
+    }
     x = array[0];
     y = array[1];
+    if(x.length === 0 || y.length === 0){
+      message = "Population input is not valid";
+      messageType = "alert-danger"
+      res.redirect("/homepage");
+      return;
+    }
     console.log(x, y);
   res.redirect("/chartpage");
 });
@@ -112,6 +126,8 @@ app.post("/create", upload.single('file'), function(req, res) {
           if (collinfo) {
             create.updateDataset(datasetName, file)
             message = "Dataset Updated";
+            messageType = "alert-success";
+
           }else{
             User.updateOne({
               username: {
@@ -126,7 +142,8 @@ app.post("/create", upload.single('file'), function(req, res) {
               } else {}
             })
             create.createDataset(datasetName, file)
-            message = "Dataset Created"
+            message = "Dataset Created";
+            messageType = "alert-success";
           }
       });
 
@@ -193,9 +210,11 @@ app.get("/homepage", function(req, res) {
       res.render("homepage", {
         newListItems: foundUsers.dateSets,
         msg: message,
+        type: messageType,
         tbl: columnNames
       });
       message = 'undefined';
+      messageType = 'undefined';
     });
 
   } else {

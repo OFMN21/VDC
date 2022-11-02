@@ -89,20 +89,6 @@
               <button type="submit" name="list" class="btn btn-primary">Create</button>
               <button type="submit" name="list" class="btn btn-primary">Update</button>
 
-              <% if(msg != 'undefined'){ %>
-              <div class="alert alert-success" id="alert" style="margin:15px;text-align:center;" role="alert">
-                <%= msg %>
-              </div>
-
-              <script type="text/javascript">
-                let alert = document.getElementById('alert')
-                let time = 3000 // time in milliseconds
-                alert.hidden = false // set img to hidden on load
-                setTimeout(() => {
-                  alert.hidden = true // after timeout show img
-                }, time)
-              </script>
-              <% } %>
 
             </form>
 
@@ -112,6 +98,7 @@
     </ul>
 
     <div class="col-10">
+
       <div class="row" style="margin-right:50px">
         <table class="table table-bordered table-dark" style="margin:20px;">
           <thead>
@@ -127,57 +114,100 @@
       </div>
       <div class="row">
 
-      <div class="col-6 border" >
+
         <!-- style="border: 1px solid;" -->
-    <!-- ########## population section column #2 ############# -->
-    <% if(tbl != undefined){ %>
-              <h3 style="text-align: center; margin:20px;">population</h3>
-              <div class="container" style="margin:50px 0px 0 50px; align: center">
+        <!-- ########## population section column #2 ############# -->
+        <% if(tbl != undefined){ %>
+              <div class="col-6 border">
+                <h3 style="text-align: center; margin:20px;">population</h3>
+                <div class="container" style="margin:50px 0px 0 50px; align: center">
 
-                <form class="" action="/filter" method="post">
-                  <!-- aggregation function input -->
-                  <div class="row" style="width:458px; margin-bottom:5px;">
-                    <!-- ###### row number 2 ###### -->
-                    <p>Add aggrigation function</p>
-                    <select name="a[0]" style="width:100px; display:inline; margin-left:px;" class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <option value="Pavg">Avg</option>
-                      <option value="Psum">Sum</option>
-                      <option value="Pcount">Count</option>
-                    </select>
-                    <select name="a[1]" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <% tbl.forEach(function(column) {%>
-                      <option><%= column%></option>
-                      <%})%>
-                    </select>
-                    <select name="a[2]" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <% tbl.forEach(function(column) {%>
-                      <option><%= column%></option>
-                      <%})%>
-                    </select>
-                  </div>
-                  <!-- function name + apply button -->
-                  <div class="row" style="width:458px; margin-bottom:5px;">
-                    <!-- ###### row number 4 ###### -->
-                    <input name="FunctionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <button type="submit" style="width:130px; margin-left:20px;" class="btn btn-outline-primary"> Add function </button>
+                  <form class="" action="/filter" method="post">
+                    <!-- aggregation function input -->
+                    <div class="row" style="width:458px; margin-bottom:5px;">
+                      <!-- ###### row number 2 ###### -->
+                      <p>Add aggrigation function</p>
+                      <select name="a[0]" style="width:100px; display:inline; margin-left:px;" class="form-select" aria-label="Default select example">
+                        <option selected></option>
+                        <option value="Pavg">Avg</option>
+                        <option value="Psum">Sum</option>
+                        <option value="Pcount">Count</option>
+                      </select>
+                      <select name="a[1]" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                        <option selected></option>
+                        <% tbl.forEach(function(column) {%>
+                        <option><%= column%></option>
+                        <%})%>
+                      </select>
+                      <select name="a[2]" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
+                        <option selected></option>
+                        <% tbl.forEach(function(column) {%>
+                        <option><%= column%></option>
+                        <%})%>
+                      </select>
+                    </div>
+                    <!-- function name + apply button -->
+                    <div class="row" style="width:458px; margin-bottom:5px;">
+                      <!-- ###### row number 4 ###### -->
+                      <input name="FunctionName" id="FunctionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                      <button type="button" style="width:130px; margin-left:20px;" class="btn btn-outline-primary" onclick="addName()"> Add function </button>
 
-                  </div>
-                  <!-- Defining population -->
-                  <div class="row" style="width:458px; margin-bottom:10px;">
-                    <!-- ###### row number 6 ###### -->
-                    <p>define your population</p>
-                    <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
-                      <select name="p[0]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
+                    </div>
+                    <script type="text/javascript">
+                      var i = 0;
+
+                      function addName() {
+                        let opt = document.createElement("option");
+                        let inputValue = document.getElementById("FunctionName").value;
+                        if (inputValue === '') {
+                          alert("You must add a name!");
+                        } else if (i > 0) {
+                          alert("You can add only one function");
+                        } else {
+                          i++;
+                          opt.innerHTML = inputValue;
+                          document.getElementById("select").appendChild(opt);
+                          document.getElementById("FunctionName").value = "";
+                        }
+                      }
+                    </script>
+                    <!-- Defining population -->
+                    <div class="row" style="width:458px; margin-bottom:10px;">
+                      <!-- ###### row number 6 ###### -->
+                      <p>Define your population</p>
+                      <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
+                        <select id="select" name="p[0]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <% tbl.forEach(function(column) {%>
+                          <option><%= column%></option>
+                          <%})%>
+                        </select>
+
+                        <select name="p[1]" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <option value="gt"> > </option>
+                          <option value="lt">
+                            < </option>
+                          <option value="eq">=</option>
+                          <option value="ne">!=</option>
+                        </select>
+                        <input name="p[2]" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                      </div>
+                      <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
+                        <select name="p[3]" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <option>AND</option>
+                          <option>OR</option>
+                        </select>
+                      </div>
+                      <select name="p[4]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
                         <option selected></option>
                         <% tbl.forEach(function(column) {%>
                         <option><%= column%></option>
                         <%})%>
                       </select>
 
-                      <select name="p[1]" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
+                      <select name="p[5]" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
                         <option selected></option>
                         <option value="gt"> > </option>
                         <option value="lt">
@@ -185,91 +215,81 @@
                         <option value="eq">=</option>
                         <option value="ne">!=</option>
                       </select>
-                      <input name="p[2]" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                    <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
-                      <select name="p[3]" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option>AND</option>
-                        <option>OR</option>
-                      </select>
-                    </div>
-                    <select name="p[4]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <% tbl.forEach(function(column) {%>
-                      <option><%= column%></option>
-                      <%})%>
-                    </select>
+                      <input name="p[6]" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 
-                    <select name="p[5]" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
-                      <option selected></option>
-                      <option value="gt"> > </option>
-                      <option value="lt">
-                        < </option>
-                      <option value="eq">=</option>
-                      <option value="ne">!=</option>
-                    </select>
-                    <input name="p[6]" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-6 border">
+                <!-- style="border: 1px solid;" -->
+                <!-- ########## query section column #3 ############# -->
+                <h3 style="text-align: center; margin:50px;">query</h3>
+                <div class="container" style="margin:100px">
+
+                  <div class="row" style="width:458px; margin-bottom:5px;">
+                    <!-- ###### row number 1 ###### -->
+                    <p>Write your query</p>
+                    <div class="container">
+                      <label style="color:grey; margin-left:-60px">X-Axis
+                        <select name="q1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
+                          <option style="color:grey" selected></option>
+                          <% tbl.forEach(function(column) {%>
+                          <option><%= column%></option>
+                          <%})%>
+                        </select>
+                      </label>
+
+                      <label style="color:grey; margin-left:50px">Y-Axis
+                        <select name="q2" style="width:100px;display:inline; " class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <% tbl.forEach(function(column) {%>
+                          <option><%= column%></option>
+                          <%})%>
+                        </select>
+
+                      </label>
+
+                    </div>
 
                   </div>
-              </div>
-      </div>
 
-      <div class="col-6 border">
-        <!-- style="border: 1px solid;" -->
-        <!-- ########## query section column #3 ############# -->
-        <h3 style="text-align: center; margin:50px;">query</h3>
-        <div class="container" style="margin:100px">
-
-          <div class="row" style="width:458px; margin-bottom:5px;">
-            <!-- ###### row number 1 ###### -->
-            <p>Write your query</p>
-            <div class="container">
-              <label style="color:grey; margin-left:-60px">X-Axis
-                <select name="q1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
-                  <option style="color:grey" selected></option>
-                  <% tbl.forEach(function(column) {%>
-                  <option><%= column%></option>
-                  <%})%>
-                </select>
-              </label>
-
-              <label style="color:grey; margin-left:50px">Y-Axis
-                <select name="q2" style="width:100px;display:inline; " class="form-select" aria-label="Default select example">
-                  <option selected></option>
-                  <% tbl.forEach(function(column) {%>
-                  <option><%= column%></option>
-                  <%})%>
-                </select>
-
-              </label>
-
-            </div>
-
-          </div>
-
-          <div class="row" style="width:458px; margin-bottom:5px;">
-            <!-- ###### row number 2 ###### -->
-            <select name="q3" style="width:100px;display:inline;" class="form-select" aria-label="Default select example">
-              <option selected></option>
-              <option> Avg </option>
-              <option> Count </option>
-              <option> Sum </option>
-              <option> Max </option>
-              <option> Min </option>
-            </select>
-          </div>
-          <div class="row" style="width:458px;">
-            <!-- ###### row number 7 ###### -->
-            <button type="submit" style="width:150px; margin-left:0px;" class="btn btn-outline-primary"> View Chart </button>
-          </div>
-          </form>
-          <%}%>
+                  <div class="row" style="width:458px; margin-bottom:5px;">
+                    <!-- ###### row number 2 ###### -->
+                    <select name="q3" style="width:100px;display:inline;" class="form-select" aria-label="Default select example">
+                      <option selected></option>
+                      <option> Avg </option>
+                      <option> Count </option>
+                      <option> Sum </option>
+                      <option> Max </option>
+                      <option> Min </option>
+                    </select>
+                  </div>
+                  <div class="row" style="width:458px;">
+                    <!-- ###### row number 7 ###### -->
+                    <button type="submit" style="width:150px; margin-left:0px;" class="btn btn-outline-primary"> View Chart </button>
+                  </div>
+                  </form>
+                  <%}%>
       </div>
      </div>
     </div>
-  </div>
-  </div>
+    <% if(msg != 'undefined'){ %>
+                  <div class="alert <%= type%> messagepos" id="toastMessage" role="alert">
+                    <%= msg %>
+                  </div>
+
+                  <script type="text/javascript">
+                    let toastMessage = document.getElementById('toastMessage')
+                    let time = 3000 // time in milliseconds
+                    toastMessage.hidden = false // set img to hidden on load
+                    setTimeout(() => {
+                      toastMessage.hidden = true // after timeout show img
+                    }, time)
+                  </script>
+                  <% } %>
+                </div>
+              </div>
 </body>
 
 </html>
