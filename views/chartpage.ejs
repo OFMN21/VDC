@@ -49,7 +49,7 @@
           <li>
             <div class="box" style="height: 475px; overflow: auto ">
 
-              
+
               <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select">
                 <option selected>Select Chart type</option>
                 <option value="bar">Bar Chart</option>
@@ -60,7 +60,10 @@
               </select>
 
               <!-- color picker -->
-              <input type="color" class="form-control form-control-color" id="colorPicker" value="#563d7c">
+              <!-- <input type="color" class="form-control form-control-color" id="colorPicker" value="#563d7c"> -->
+              <hr style="margin-top:150px">
+              <h6 style="color:grey;">Click on data to change color</h6>
+              <input id="colorPicker" type="color"  style="visibility: hidden;" class="form-control form-control-color"/>
 
 
             </div>
@@ -72,43 +75,42 @@
       <div class="col-9">
         <div class="chartBox">
           <canvas id="myChart"></canvas>
-          
+
         </div>
-        <input type="color" id="colorPicker" hidden />
+
         <div class="inputBox">
-          <input type="number" class="form-control" style="width:200px; display:inline" id="inputdata">
-          <input type="text" placeholder="Color" class="form-control" style="width:200px; display:inline" id="inputcolor">
-          <input type="text" class="form-control" style="width:200px; display:inline" placeholder="label" id="inputlabel">
+          <input type="number" class="form-control" style="width:200px; display:inline" placeholder="Data value" id="inputdata">
+          <input type="text" class="form-control" style="width:200px; display:inline" placeholder="Data" id="inputlabel">
           <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button>
           <hr>
           <input type="number" class="form-control" style="width:100px; display:inline" id="filterdatanumber">
           <select id="filter" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
             <option selected></option>
             <option value="greater">></option>
-            <option value="smaller">
-              << /option>
+            <option value="smaller"><</option>
             <option value="greaterOr">>=</option>
-            <option value="smallerOr">
-              <=< /option>
+            <option value="smallerOr"><=</option>
             <option value="equal">=</option>
 
 
           </select>
           <button onclick="filterChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Filter Chart</button>
-          <button onclick="resetChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Reset Chart</button>
 
-          
+          <div class="row" style="margin-top:40px">
+            <button onclick="resetChart()" class="btn btn-outline-primary" style="margin-bottom:3px; width:150px; margin-left:420px;">Reset Chart</button>
+          </div>
+
+
         </div>
-        <button onclick="download()" class="btn btn-secondary" style="margin-top:150px; margin-right:900px">Download</button>
+        <button onclick="download()" class="btn btn-secondary" style="margin-top:100px; margin-right:900px">Download</button>
 
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script type="">
+        <script>
 
           document.getElementById("my-select").addEventListener("change", changeChart);
-          document.getElementById("filter").addEventListener("change", filterChart);
-
+          // document.getElementById("filter").addEventListener("change", filterChart);
 
 
 
@@ -117,46 +119,70 @@
           var data = [<%= y %>]
           const originalLabels = label;
           const originalData = data ;
+          console.log(label);
+          console.log("xxxx");
+          console.log(data);
 
 
-          var ctx = document.getElementById('myChart').getContext('2d');
+
+          // let selected = undefined;
+          // const chartData = {
+          // labels: originalLabels,
+          // datasets: [{
+          // fill: true,
+          // backgroundColor:  ['cyan','cyan','cyan','cyan','cyan','cyan','cyan'],
+          // data: originalData,
+          // }]
+          // };
+
+          var coloR = [];
+          var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgb(" + r + "," + g + "," + b + ", 0.6)";
+          };
+          for (var i in originalData) {
+           coloR.push(dynamicColors());
+          }
+
+          let selected = undefined;
+          const ctx = document.getElementById('myChart').getContext('2d');
           var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
               labels: originalLabels,
               datasets: [{
-                label: '# of Votes',
+                label: '',
                 data: originalData,
-                backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: coloR,
                 borderWidth: 1
               }]
             },
             options: {
-              scales: {
-                y: {
-                  beginAtZero: true
+              onClick(evt, elements, chart) {
+                if (elements.length) {
+                  selected = elements;
+                  const colorPicker = document.getElementById("colorPicker");
+                  colorPicker.click();
                 }
               }
             }
           });
 
 
-
+          document.getElementById("colorPicker").addEventListener("change", setColor);
+          function setColor() {
+            if (selected && selected.length) {
+              const colorPicker = document.getElementById("colorPicker");
+              for (const el of selected) {
+                const {datasetIndex, index} = el;
+                const dataset = myChart.data.datasets[datasetIndex];
+                dataset.backgroundColor.splice(index, 1, colorPicker.value);
+              }
+              myChart.update();
+            }
+          }
 
 
 
@@ -164,15 +190,11 @@
 
           function updateChart() {
             const inputdata = document.getElementById('inputdata');
-            const inputcolor = document.getElementById('inputcolor');
             const inputlable = document.getElementById('inputlabel');
             myChart.data.datasets[0].data.push(inputdata.value);
-            myChart.data.datasets[0].backgroundColor.push(inputcolor.value);
-            myChart.data.datasets[0].borderColor.push(inputcolor.value);
+            myChart.data.datasets[0].backgroundColor.push(dynamicColors());
             myChart.data.labels.push(inputlabel.value);
-
             myChart.update()
-
           }
 
 
@@ -181,9 +203,10 @@
             myChart.data.datasets[0].data = originalData;
             myChart.data.labels = originalLabels;
             const filterdatanumber = document.getElementById('filterdatanumber').value;
+            const value = document.getElementById('filter').value;
             var filterData=null;
             // filter array.filter command
-            var value = this.value;
+            // var value = this.value;
             console.log(value);
             switch (value) {
               case 'greater':
@@ -216,8 +239,6 @@
                     console.log("wrong");
             }
 
-            // const filterData = myChart.data.datasets[0].data.filter(value => value >
-
             // create 2 new arrays for the labels + colors.
             const filterLabels = [];
             const filterColors = [];
@@ -226,22 +247,26 @@
             for (i; i < filterData.length; i++) {
               const result = myChart.data.datasets[0].data.indexOf(filterData[i]);
               const labelresult = myChart.data.labels[result];
-              const colorsresult = myChart.data.datasets[0].backgroundColor[result];
+              // const colorsresult = myChart.data.datasets[0].backgroundColor[coloR];
               //push this into the new array
               filterLabels.push(labelresult);
-              filterColors.push(colorsresult);
+              // filterColors.push(colorsresult);
 
 
             }
             // reassign the array into the chart.
             myChart.data.datasets[0].data = filterData;
             myChart.data.labels = filterLabels;
-            myChart.data.datasets[0].backgroundColor = filterColors;
+            // myChart.data.datasets[0].backgroundColor = filterColors;
 
             // update chart
             myChart.update()
-          }
+          }
+
           function resetChart() {
+            console.log(label);
+            console.log("xxxx");
+            console.log(data);
             myChart.data.datasets[0].data = originalData;
             myChart.data.labels = originalLabels;
             myChart.update();
