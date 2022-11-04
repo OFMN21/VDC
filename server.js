@@ -1,4 +1,3 @@
-//jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -73,34 +72,36 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 app.post("/filter", async function(req, res){
 
-    var filteredDS = await mongoose.connection.db.collection(dsName);
-    var pop =  population.filter(
+  var filteredDS = await mongoose.connection.db.collection(dsName);
+  //var agg = aggregation.aggregate(req.body.a, req.body.p[0]);
+  var pop = population.filter(
       req.body.p
     );
-    console.log(pop);
-    try{
-    var array = await query.query(
-    filteredDS,
-    pop,
-    req.body.q1,
-    req.body.q2,
-    req.body.q3
-  );
-    }catch{
+  try{
+      var array = await query.query(
+        filteredDS,
+        pop,
+        req.body.q1,
+        req.body.q2,
+        req.body.q3
+      );
+    }
+  catch{
       message = "Query input is not valid";
       messageType = "alert-danger"
       res.redirect("/homepage");
       return;
     }
-    x = array[0];
-    y = array[1];
-    if(x.length === 0 || y.length === 0){
+  x = array[0];
+  y = array[1];
+  if(x.length === 0 || y.length === 0){
       message = "Population input is not valid";
       messageType = "alert-danger"
       res.redirect("/homepage");
       return;
     }
-    console.log(x, y);
+  message = 'undefined';
+  messageType = 'undefined';
   res.redirect("/chartpage");
 });
 

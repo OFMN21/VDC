@@ -55,13 +55,6 @@
               <% newListItems.forEach(function(dataset) {%>
               <form action="/view" id="delete" method="post">
                 <div class="item">
-
-                  <!-- <a href="">
-                  <p class="dataset"><%=dataset%>
-                    <input type="hidden" name="view" value="<%=dataset%>" onclick="submit()">
-                  </p>
-                </a> -->
-
                   <i class="" aria-hidden="true">
                     <input type="checkbox" name="delete" class="btn btn-outline-danger deleteButton fa fa-trash" value="<%=dataset%>" onchange="submit()">
                   </i>
@@ -102,10 +95,15 @@
       <div class="row" style="margin-right:50px">
         <table class="table table-bordered table-dark" style="margin:20px;">
           <thead>
+            <% if(tbl != undefined){ %>
+            <!-- <tr>
+              <th style="text-align:center;">
+                
+              </th>
+            </tr> -->
             <tr>
-              <% if(tbl != undefined){ %>
               <% tbl.forEach(function(column) {%>
-              <th scope="col" style="width: 100px"> <%= column%> </th>
+              <td scope="col" style="width: 100px"> <%= column%> </td>
               <%})%>
               <%}%>
             </tr>
@@ -150,7 +148,7 @@
                     <div class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 4 ###### -->
                       <input name="FunctionName" id="FunctionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                      <button type="button" style="width:130px; margin-left:20px;" class="btn btn-outline-primary" onclick="addName()"> Add function </button>
+                      <button type="button" style="width:130px; margin-left:20px;" class="btn btn-outline-primary" onclick="addName()"> Apply column</button>
 
                     </div>
                     <script type="text/javascript">

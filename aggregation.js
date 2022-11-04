@@ -10,7 +10,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-function filter(p){
+function aggregate(a,p){
+console.log(isNaN(p[2]));
+  //array p = [monthN, $gt, 5]
 var  obj={};
 if( isNaN(p[2]) ){
   var constraint1 = {}; constraint1['$' + p[1]]= p[2];
@@ -59,4 +61,4 @@ if(p[3] == 'AND' ){
 return obj;
 }
 
-exports.filter = filter;
+exports.aggregate = aggregate;
