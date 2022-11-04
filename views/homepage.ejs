@@ -98,7 +98,7 @@
             <% if(tbl != undefined){ %>
             <!-- <tr>
               <th style="text-align:center;">
-                
+
               </th>
             </tr> -->
             <tr>
@@ -124,12 +124,13 @@
                     <!-- aggregation function input -->
                     <div class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 2 ###### -->
-                      <p>Add aggrigation function</p>
+                      <p>Add aggregated column</p>
                       <select name="a[0]" style="width:100px; display:inline; margin-left:px;" class="form-select" aria-label="Default select example">
                         <option selected></option>
-                        <option value="Pavg">Avg</option>
-                        <option value="Psum">Sum</option>
-                        <option value="Pcount">Count</option>
+                        <option value="avg"> Avg </option>
+                        <option value="add"> Add </option>
+                        <option value="max"> Max </option>
+                        <option value="min"> Min </option>
                       </select>
                       <select name="a[1]" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
                         <option selected></option>
@@ -148,33 +149,41 @@
                     <div class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 4 ###### -->
                       <input name="FunctionName" id="FunctionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                      <input type="hidden" id="FN" name="a[3]">
                       <button type="button" style="width:130px; margin-left:20px;" class="btn btn-outline-primary" onclick="addName()"> Apply column</button>
 
                     </div>
+                    <!-- aggregated column -->
                     <script type="text/javascript">
                       var i = 0;
 
                       function addName() {
-                        let opt = document.createElement("option");
-                        let inputValue = document.getElementById("FunctionName").value;
+                        let opt;
+                        var inputValue = document.getElementById("FunctionName").value;
                         if (inputValue === '') {
                           alert("You must add a name!");
                         } else if (i > 0) {
                           alert("You can add only one function");
                         } else {
                           i++;
-                          opt.innerHTML = inputValue;
-                          document.getElementById("select").appendChild(opt);
+                          document.getElementById("FN").value = document.getElementById("FunctionName").value;
+                          var collection = document.getElementsByClassName("select")
+                          for (let i = 0; i < collection.length; i++) {
+                            opt = document.createElement("option");
+                            opt.innerHTML = inputValue;
+                            collection[i].appendChild(opt);
+                          }
                           document.getElementById("FunctionName").value = "";
                         }
                       }
                     </script>
+
                     <!-- Defining population -->
                     <div class="row" style="width:458px; margin-bottom:10px;">
                       <!-- ###### row number 6 ###### -->
                       <p>Define your population</p>
                       <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
-                        <select id="select" name="p[0]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
+                        <select name="p[0]" style="width:100px; display:inline;" class="form-select select" aria-label="Default select example">
                           <option selected></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
@@ -230,7 +239,7 @@
                     <p>Write your query</p>
                     <div class="container">
                       <label style="color:grey; margin-left:-60px">X-Axis
-                        <select name="q1" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
+                        <select name="q1" style="width:100px; display:inline; " class="form-select select" aria-label="Default select example">
                           <option style="color:grey" selected></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
@@ -239,7 +248,7 @@
                       </label>
 
                       <label style="color:grey; margin-left:50px">Y-Axis
-                        <select name="q2" style="width:100px;display:inline; " class="form-select" aria-label="Default select example">
+                        <select name="q2" style="width:100px;display:inline; " class="form-select select" aria-label="Default select example">
                           <option selected></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
@@ -285,6 +294,7 @@
                       toastMessage.hidden = true // after timeout show img
                     }, time)
                   </script>
+                  <% msg = 'undefined'%>
                   <% } %>
                 </div>
               </div>

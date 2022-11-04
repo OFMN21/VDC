@@ -12,7 +12,7 @@ var arr = []
 
 
 
-async function query(DS,filter,q1,q2,q3){
+async function query(DS,filter,aggregate,q1,q2,q3){
 
   arr.length = 0;
   var obj;
@@ -28,7 +28,7 @@ async function query(DS,filter,q1,q2,q3){
     case 'Avg':
         console.log('AVG');
         filtered = await DS.aggregate(
-                                      [
+                                      [ aggregate,
                                         {$match: filter},
                                         {$group:
                                         {_id:'$'+grouping[q1],
@@ -84,6 +84,7 @@ async function query(DS,filter,q1,q2,q3){
           break;
     default:
           filtered = await DS.aggregate([
+                                        aggregate,
                                         {$match: filter},
                                         {$project: projection}
                                         ]).toArray()

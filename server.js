@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require("passport");
 const create = require("./create");
 const query = require("./query");
+const aggregation = require("./aggregation");
 const population = require("./population");
 const deleteDataset = require("./delete")
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -73,20 +74,23 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 app.post("/filter", async function(req, res){
 
   var filteredDS = await mongoose.connection.db.collection(dsName);
-  //var agg = aggregation.aggregate(req.body.a, req.body.p[0]);
-  var pop = population.filter(
-      req.body.p
-    );
+
+  var agg = aggregation.aggregate(req.body.a);
+
+  var pop = population.filter(req.body.p);
+
   try{
       var array = await query.query(
         filteredDS,
         pop,
+        agg,
         req.body.q1,
         req.body.q2,
         req.body.q3
       );
     }
-  catch{
+  catch(err){
+      console.log(err);
       message = "Query input is not valid";
       messageType = "alert-danger"
       res.redirect("/homepage");
@@ -94,6 +98,7 @@ app.post("/filter", async function(req, res){
     }
   x = array[0];
   y = array[1];
+  console.log(x,y);
   if(x.length === 0 || y.length === 0){
       message = "Population input is not valid";
       messageType = "alert-danger"
