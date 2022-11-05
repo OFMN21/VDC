@@ -96,11 +96,7 @@
         <table class="table table-bordered table-dark" style="margin:20px;">
           <thead>
             <% if(tbl != undefined){ %>
-            <!-- <tr>
-              <th style="text-align:center;">
 
-              </th>
-            </tr> -->
             <tr>
               <% tbl.forEach(function(column) {%>
               <td scope="col" style="width: 100px"> <%= column%> </td>
@@ -111,8 +107,6 @@
         </table>
       </div>
       <div class="row">
-
-
         <!-- style="border: 1px solid;" -->
         <!-- ########## population section column #2 ############# -->
         <% if(tbl != undefined){ %>
@@ -182,7 +176,7 @@
                     </script>
 
                     <!-- Defining population -->
-                    <div class="row" style="width:458px; margin-bottom:10px;">
+                <div class="row" style="width:458px; margin-bottom:10px;">
                       <!-- ###### row number 6 ###### -->
                       <p>Define your population</p>
                       <p style="font-size: 10px; margin-top:-40px">*Add new column using two columns data</p>
@@ -285,24 +279,46 @@
                   <%}%>
       </div>
      </div>
-    </div>
-    <% if(msg != 'undefined'){ %>
-                  <div class="alert <%= type%> messagepos" id="toastMessage" role="alert">
-                    <%= msg %>
-                  </div>
+     <div class="row">
+       <% if(msg != 'undefined'){ %>
+                     <div class="alert <%= type%> messagepos" id="toastMessage" role="alert">
+                       <%= msg %>
+                     </div>
 
-                  <script type="text/javascript">
-                    let toastMessage = document.getElementById('toastMessage')
-                    let time = 3000 // time in milliseconds
-                    toastMessage.hidden = false // set img to hidden on load
-                    setTimeout(() => {
-                      toastMessage.hidden = true // after timeout show img
-                    }, time)
-                  </script>
-                  <% msg = 'undefined'%>
-                  <% } %>
-                </div>
-              </div>
-</body>
+                     <script type="text/javascript">
+                       let toastMessage = document.getElementById('toastMessage')
+                       let time = 3000 // time in milliseconds
+                       toastMessage.hidden = false // set img to hidden on load
+                       setTimeout(() => {
+                         toastMessage.hidden = true // after timeout show img
+                       }, time)
+                     </script>
+                     <% msg = 'undefined'%>
+                     <% } %>
+                   </div>
+                 </div>
+
+                 <table class="table table-bordered table-hover" style="margin:50px">
+                   <tr>
+                     <td>Aggregated column</td>
+                     <td>dk.hbk,hjb,jhb,jhbkjhyvkjgvhkjhgvkjhvbkjhvblkhblhvjhvkjgvkjhgvkjhvkjhvj</td>
+                   </tr>
+                   <tr>
+                     <td>Constraints</td>
+                     <td>dk.hbk,hjb,jhb,jhbkjhyvkjgvhkjhgvkjhvbkjhvblkhblhvjhvkjgvkjhgvkjhvkjhvj</td>
+                   </tr>
+                   <tr>
+                     <td>query</td>
+                     <td>dk.hbk,hjb,jhb,jhbkjhyvkjgvhkjhgvkjhvbkjhvblkhblhvjhvkjgvkjhgvkjhvkjhvj</td>
+                   </tr>
+                   <tr>
+                     <td>upload</td>
+                     <td>dk.hbk,hjb,jhb,jhbkjhyvkjgvhkjhgvkjhvbkjhvblkhblhvjhvkjgvkjhgvkjhvkjhvj</td>
+                   </tr>
+                 </table>
+               </div>
+
+    </div>
+    </body>
 
 </html>
