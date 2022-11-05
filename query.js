@@ -93,7 +93,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
                                         aggregate,
                                         {$match: filter},
                                         {$project: projection}
-                                        ]).toArray()
+                                        ]).toArray() 
   }
   if(q3 == ""){
     for (let i = 0; i < filtered.length; i++) {
