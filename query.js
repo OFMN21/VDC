@@ -24,6 +24,9 @@ async function query(DS,filter,aggregate,q1,q2,q3){
   if(filter == undefined){
     filter = {}
   }
+  if(aggregate == undefined){
+    aggregate = {$addFields:{}}
+  }
   switch (q3) {
     case 'Avg':
         console.log('AVG');
@@ -40,6 +43,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
         console.log('count');
         filtered = await DS.aggregate(
                                       [
+                                        aggregate,
                                         {$match: filter},
                                         {
                                           $group:
@@ -54,7 +58,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
     case 'Sum':
         console.log('sum');
         filtered = await DS.aggregate(
-                                      [
+                                      [ aggregate,
                                         {$match: filter},
                                       {$group:
                                         {_id:'$'+grouping[q1],
@@ -66,6 +70,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
           console.log('MAX');
           filtered = await DS.aggregate(
                                         [
+                                          aggregate,
                                           {$match: filter},
                                           {$group:
                                         {_id:'$'+grouping[q1],
@@ -76,6 +81,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
           console.log('MIN');
           filtered = await DS.aggregate(
                                         [
+                                          aggregate,
                                           {$match: filter},
                                           {$group:
                                          {_id:'$'+grouping[q1],

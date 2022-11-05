@@ -74,9 +74,13 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 app.post("/filter", async function(req, res){
 
   var filteredDS = await mongoose.connection.db.collection(dsName);
-
+console.log(req.body.a[0]);
+var a = req.body.a;
+if(a[0] != '' && a[1] != '' && a[2] != ''){
   var agg = aggregation.aggregate(req.body.a);
-
+}else{
+  var agg = undefined;
+}
   var pop = population.filter(req.body.p);
 
   try{
