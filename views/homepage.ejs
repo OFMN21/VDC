@@ -128,20 +128,20 @@
                       <p style="font-size: 10px; margin-top:-40px">*Add new column using two columns data</p>
                       <div class="row" style="margin-top:-15px">
                         <select name="a[0]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <option value="avg"> Avg </option>
                           <option value="add"> Add </option>
                           <option value="max"> Max </option>
                           <option value="min"> Min </option>
                         </select>
                         <select name="a[1]" style="width:100px; display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
                           <%})%>
                         </select>
                         <select name="a[2]" style="width:100px;display:inline; margin-left:25px;" class="form-select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
                           <%})%>
@@ -188,14 +188,14 @@
                       <p style="font-size: 10px; margin-top:-40px">*Add new column using two columns data</p>
                       <div class="row" style="width:458px; margin-bottom:5px; margin-top:-15px;">
                         <select name="p[0]" style="width:100px; display:inline;" class="form-select select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
                           <%})%>
                         </select>
 
                         <select name="p[1]" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <option value="gt"> > </option>
                           <option value="lt">
                             < </option>
@@ -206,20 +206,20 @@
                       </div>
                       <div class="row" style="width:458px; margin-bottom:5px;margin-bottom:5px;">
                         <select name="p[3]" style="width:100px; display:inline; " class="form-select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <option>AND</option>
                           <option>OR</option>
                         </select>
                       </div>
                       <select name="p[4]" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
-                        <option value="" selected disabled >Select</option>
+                        <option value=""></option>
                         <% tbl.forEach(function(column) {%>
                         <option><%= column%></option>
                         <%})%>
                       </select>
 
                       <select name="p[5]" style="width:100px; display:inline; margin-left:10px" class="form-select" aria-label="Default select example">
-                        <option value="" selected disabled >Select</option>
+                        <option value=""></option>
                         <option value="gt"> > </option>
                         <option value="lt">
                           < </option>
@@ -245,7 +245,7 @@
                     <div class="container" style="margin-top:-15px;">
                       <label style="color:grey; margin-left:-60px">X-Axis
                         <select name="q1" style="width:100px; display:inline; " class="form-select select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
                           <%})%>
@@ -254,7 +254,7 @@
 
                       <label style="color:grey; margin-left:50px">Y-Axis
                         <select name="q2" style="width:100px;display:inline; " class="form-select select" aria-label="Default select example">
-                          <option value="" selected disabled >Select</option>
+                          <option value=""></option>
                           <% tbl.forEach(function(column) {%>
                           <option><%= column%></option>
                           <%})%>
@@ -269,7 +269,7 @@
                   <div class="row" style="width:458px; margin-bottom:5px;">
                     <!-- ###### row number 2 ###### -->
                     <select name="q3" style="width:100px;display:inline; margin-left:2.5px;" class="form-select" aria-label="Default select example">
-                      <option value="" selected disabled >Select</option>
+                      <option value=""></option>
                       <option> Avg </option>
                       <option> Count </option>
                       <option> Sum </option>

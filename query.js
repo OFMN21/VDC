@@ -27,6 +27,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
   if(aggregate == undefined){
     aggregate = {$addFields:{}}
   }
+  console.log(aggregate, filter);
   switch (q3) {
     case 'Avg':
         console.log('AVG');
@@ -93,7 +94,7 @@ async function query(DS,filter,aggregate,q1,q2,q3){
                                         aggregate,
                                         {$match: filter},
                                         {$project: projection}
-                                        ]).toArray() 
+                                        ]).toArray()
   }
   if(q3 == ""){
     for (let i = 0; i < filtered.length; i++) {
