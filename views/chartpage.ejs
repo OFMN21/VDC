@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/chartpage.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 
 
 </head>
@@ -42,16 +43,20 @@
         <!-- ########### column #1 ############## -->
         <!-- ######### Sidebar ############# -->
         <!-- overflow: auto -->
-        <ul style="margin-top: 67px;" class="sidebar-menu vertical-menu">
+        <ul style="margin-top: 70px;" class="sidebar-menu vertical-menu">
           <li class="sidebar-header">
-            <h3 style="color:white; margin-left:30px">Datasets</h3>
+            <a style="border-top: 1px solid grey;border-bottom: 1px solid grey;" href="/homepage">
+                <iconify-icon style="color: white; " width="25" icon="bi:arrow-left"></iconify-icon>
+                <h5 style="color:white; ">Back to Datasets</h5>
+            </a>
           </li>
           <li>
             <div class="box" style="height: 475px; overflow: auto ">
 
 
               <select id="my-select" style="width:200px;margin: 15px;display:inline;" class="form-select">
-                <option selected>Select Chart type</option>
+
+                <option value="" selected disabled >Select Chart type</option>
                 <option value="bar">Bar Chart</option>
                 <option value="line">Line Chart</option>
                 <option value="pie">Pie Chart</option>
@@ -85,7 +90,7 @@
           <hr>
           <input type="number" class="form-control" style="width:100px; display:inline" id="filterdatanumber">
           <select id="filter" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
-            <option selected></option>
+            <option value="" selected disabled >Select</option>
             <option value="greater">></option>
             <option value="smaller"><</option>
             <option value="greaterOr">>=</option>
@@ -110,7 +115,6 @@
         <script>
 
           document.getElementById("my-select").addEventListener("change", changeChart);
-          // document.getElementById("filter").addEventListener("change", filterChart);
 
 
 
@@ -119,21 +123,6 @@
           var data = [<%= y %>]
           const originalLabels = label;
           const originalData = data ;
-          console.log(label);
-          console.log("xxxx");
-          console.log(data);
-
-
-
-          // let selected = undefined;
-          // const chartData = {
-          // labels: originalLabels,
-          // datasets: [{
-          // fill: true,
-          // backgroundColor:  ['cyan','cyan','cyan','cyan','cyan','cyan','cyan'],
-          // data: originalData,
-          // }]
-          // };
 
           var coloR = [];
           var dynamicColors = function() {
@@ -156,7 +145,8 @@
                 label: '',
                 data: originalData,
                 backgroundColor: coloR,
-                borderWidth: 1
+                borderColor: coloR,
+                borderWidth: 2
               }]
             },
             options: {
