@@ -91,20 +91,27 @@
     </ul>
 
     <div class="col-10">
-
+<!-- <h2 class="text-center"><%= ds %></h2> -->
       <div class="row" style="margin-right:50px">
-        <table class="table table-bordered table-dark" style="margin:20px;">
+        <% if(tbl != undefined){ %>
+        <table class="table table-bordered table-dark" style="margin:5px; margin-bottom:0px;">
           <thead>
-            <% if(tbl != undefined){ %>
+            <tr>
+              <th class="text-center"><%= ds %></th>
+            </tr>
+          </thead>
+        </table>
 
+        <table class="table table-bordered table-dark" style="margin:5px;margin-top:0px;">
+          <thead>
             <tr>
               <% tbl.forEach(function(column) {%>
               <td scope="col" style="width: 100px"> <%= column%> </td>
               <%})%>
-              <%}%>
             </tr>
           </thead>
         </table>
+              <%}%>
       </div>
       <div class="row">
         <!-- style="border: 1px solid;" -->

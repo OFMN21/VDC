@@ -16,6 +16,7 @@ const app = express();
 var x;
 var y;
 var dsName;
+var dsTitle;
 var columnNames;
 var dsDelete;
 var currentUser;
@@ -188,11 +189,12 @@ app.get("/login", function(req, res) {
 app.post("/view", function(req, res) {
   columnNames = undefined;
   dsName = req.body.view + '_' + currentUser + 's';
-
+  dsTitle = req.body.view;
   if(req.body.delete != undefined){
     dsDelete = req.body.delete;
     res.redirect(307, "/delete");
-
+    message = "Dataset deleted";
+    messageType = "alert-danger"
   }else{
   var dataset = mongoose.connection.db.collection(dsName)
   var mykeys;
@@ -221,7 +223,8 @@ app.get("/homepage", function(req, res) {
         newListItems: foundUsers.dateSets,
         msg: message,
         type: messageType,
-        tbl: columnNames
+        tbl: columnNames,
+        ds: dsTitle
       });
       message = 'undefined';
       messageType = 'undefined';
