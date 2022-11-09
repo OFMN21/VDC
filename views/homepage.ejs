@@ -13,6 +13,46 @@
   <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
+
+
+  <!-- disable form -->
+  <script type="text/javascript">
+
+  function sah() {
+		$("#div2").attr("disabled", "disabled").off('click');
+		var x1=$("#div2").hasClass("disabledDiv");
+
+		(x1==true)?$("#div2").removeClass("disabledDiv"):$("#div2").addClass("disabledDiv");
+  sah1(document.getElementById("div1"));
+
+}
+
+    function sah1(el) {
+        try {
+            el.disabled = el.disabled ? false : true;
+        } catch (E) {}
+        if (el.childNodes && el.childNodes.length > 0) {
+            for (var x = 0; x < el.childNodes.length; x++) {
+                sah1(el.childNodes[x]);
+            }
+        }
+    }
+
+  </script>
+  <style type="text/css">
+  #div2{
+  padding:5px 10px;
+  background-color:#777;
+  width:150px;
+  margin-bottom:20px;
+}
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.4;
+}
+  </style>
 
 
 </head>
@@ -119,11 +159,25 @@
         <% if(tbl != undefined){ %>
               <div class="col-md-6 border">
                 <h3 style="text-align: center; margin:20px;">population</h3>
-                <div class="container" style="margin:50px 0px 0 50px; align: center">
+                <input type="button" value="Click" onclick="sah()" />
+                <div id="div1" class="container" style="margin:50px 0px 0 50px; align: center">
+                          <!-- disable form -->
 
+                          <!-- <div id="div1">
+
+
+
+                              </div> -->
+
+
+
+
+                      <!-- disable form -->
                   <form class="" action="/filter" method="post">
+
+
                     <!-- aggregation function input -->
-                    <div class="row" style="width:458px; margin-bottom:5px;">
+                    <div  class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 2 ###### -->
                       <p>Add aggregated column</p>
                       <p style="font-size: 10px; margin-top:-40px">*Add new column using two columns data</p>
@@ -150,7 +204,7 @@
                       </div>
                     </div>
                     <!-- function name + apply button -->
-                    <div class="row" style="width:458px; margin-bottom:5px;">
+                    <div  class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 4 ###### -->
                       <input name="FunctionName" id="FunctionName" type="text" placeholder="Function name" style="width:200px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                       <input type="hidden" id="FN" name="a[3]">
@@ -230,6 +284,22 @@
                       <input name="p[6]" type="text" placeholder="Value" style="width:90px;margin-left:10px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 
                     </div>
+                    <div class="row">
+
+
+                            <label for="inputCity">Population Name</label>
+                            <input style="width:250px" type="text" class="form-control" id="inputCity">
+
+
+                        <div class="form-group">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck">
+                          <label class="form-check-label" for="gridCheck">
+                            Save
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
 
@@ -279,7 +349,7 @@
                     </select>
                   </div>
                   <div class="row" style="width:458px;">
-                    <!-- ###### row number 7 ###### -->
+                    <!-- ###### row number 3 ###### -->
                     <button type="submit" style="width:150px; margin-left:0px;" class="btn btn-outline-primary"> View Chart </button>
                   </div>
                   </form>
