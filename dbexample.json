@@ -91,6 +91,26 @@ var newPopulation = dataset.find({
     },
   ]})
 
+students_fahad@f.fs_pop {
+  {
+    _id: students last year,
+    objec: agg,
+    object: pop
+  },
+  {
+    _id: name,
+    objec: agg,
+    object: pop
+  }
+}
+
+
+
+
+
+
+
+
 height,width
 int,int
 10,20
