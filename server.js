@@ -64,25 +64,38 @@ const userSchema = new mongoose.Schema({
   password: String,
   dateSets: [String]
 });
+// const populationSchema = new mongoose.Schema({
+//   _id: String,
+//   aggregation: String,
+//   population: String
+// });
 userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User", userSchema);
-
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser()); //start the session
 passport.deserializeUser(User.deserializeUser()); //end the session
 
 
 app.post("/filter", async function(req, res){
-
+console.log(req.body.popType);
 var filteredDS = await mongoose.connection.db.collection(dsName);
 
-var a = req.body.a;
+if(req.body.popType === 'defined'){
 if(a[0] != '' && a[1] != '' && a[2] != ''){
   var agg = aggregation.aggregate(req.body.a);
 }else{
   var agg = undefined;
 }
   var pop = population.filter(req.body.p);
+ }
+//else if(req.body.popType === 'selected'){
+//   var agg = جبها من الداتابيس;
+//   var pop = جبها من الداتابيس;
+// }
+  else{
+    var agg = undefined;
+    var pop = undefined;
+}
 
   try{
       var array = await query.query(
@@ -110,7 +123,10 @@ if(a[0] != '' && a[1] != '' && a[2] != ''){
       res.redirect("/homepage");
       return;
     }
-
+  // if(req.body.اسم التشيكبوكس.checked){
+  //   // var popname = req.body.popName + '_' + dsName
+  //   // const savePop = new mongoose.model(, populationSchema);
+  // }
   message = 'undefined';
   messageType = 'undefined';
   res.redirect("/chartpage");

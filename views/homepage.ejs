@@ -20,11 +20,12 @@
   <!-- disable form -->
   <script type="text/javascript">
   function select() {
+    document.getElementById("popType").setAttribute("value","selected")
     document.getElementById("div1").style.display = "none";
     document.getElementById("div2").style.display = "block";
   }
-
   function define() {
+    document.getElementById("popType").setAttribute("value","defined")
     document.getElementById("div2").style.display = "none";
     document.getElementById("div1").style.display = "block";
   }
@@ -162,6 +163,7 @@
 
                       <!-- disable form -->
                   <form class="" action="/filter" method="post">
+                    <input type="hidden" id="popType" name="popType" value="defined">
                     <div class="row" id="div2" style="margin-top:-15px; display:none;">
                         <p>Choose existing population</p>
                         <select name="S" style="width:200px; display:inline;" class="form-select" aria-label="Default select example">
@@ -171,7 +173,7 @@
                           <%})%>
                         </select>
                       </div>
-<div id="div1" style="">
+                    <div id="div1" style="">
                     <!-- aggregation function input -->
                     <div  class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 2 ###### -->
@@ -301,7 +303,7 @@
               </div>
               </div>
 
-              <div class="col-md-6 border">
+      <div class="col-md-6 border">
                 <!-- style="border: 1px solid;" -->
                 <!-- ########## query section column #3 ############# -->
                 <h3 style="text-align: center; margin-top:20px;margin-bottom:50px;">query</h3>
