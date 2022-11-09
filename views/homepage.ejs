@@ -20,14 +20,14 @@
   <!-- disable form -->
   <script type="text/javascript">
   function select() {
-  document.getElementById("div33").style.display = "block";
-  document.getElementById("div1").style.display = "none";
-}
+    document.getElementById("div1").style.display = "none";
+    document.getElementById("div2").style.display = "block";
+  }
 
   function define() {
-      document.getElementById("div33").style.display = "none";
-      document.getElementById("div1").style.display = "block";
-    }
+    document.getElementById("div2").style.display = "none";
+    document.getElementById("div1").style.display = "block";
+  }
 
   </script>
   <style type="text/css">
@@ -148,7 +148,7 @@
                   <button type="button" class="btn btn-dark" onclick="define()">Define</button>
                   <button type="button" class="btn btn-dark" onclick="select()">Select</button>
                 </div>
-                <div id="div1" class="container" style="margin:0px 0px 0 50px; align: center">
+                <div class="container" style="margin:0px 0px 0 50px; align: center;" >
                           <!-- disable form -->
 
                           <!-- <div id="div1">
@@ -162,12 +162,7 @@
 
                       <!-- disable form -->
                   <form class="" action="/filter" method="post">
-
-
-                    <!-- aggregation function input -->
-                    <div  class="row" style="width:458px; margin-bottom:5px;">
-                      <!-- ###### row number 2 ###### -->
-                    <div class="row" id="div33" style="margin-top:-15px; display:none;">
+                    <div class="row" id="div2" style="margin-top:-15px; display:none;">
                         <p>Choose existing population</p>
                         <select name="S" style="width:200px; display:inline;" class="form-select" aria-label="Default select example">
                           <option value=""></option>
@@ -176,6 +171,10 @@
                           <%})%>
                         </select>
                       </div>
+<div id="div1" style="">
+                    <!-- aggregation function input -->
+                    <div  class="row" style="width:458px; margin-bottom:5px;">
+                      <!-- ###### row number 2 ###### -->
 
                       <p>Add aggregated column</p>
                       <p style="font-size: 10px; margin-top:-40px">*Add new column using two columns data</p>
@@ -299,6 +298,7 @@
                       </div>
                     </div>
                 </div>
+              </div>
               </div>
 
               <div class="col-md-6 border">
