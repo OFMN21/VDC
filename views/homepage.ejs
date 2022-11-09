@@ -19,35 +19,19 @@
 
   <!-- disable form -->
   <script type="text/javascript">
-
-  function sah() {
-		$("#div2").attr("disabled", "disabled").off('click');
-		var x1=$("#div2").hasClass("disabledDiv");
-
-		(x1==true)?$("#div2").removeClass("disabledDiv"):$("#div2").addClass("disabledDiv");
-  sah1(document.getElementById("div1"));
-
+  function select() {
+  document.getElementById("div33").style.display = "block";
+  document.getElementById("div1").style.display = "none";
 }
 
-    function sah1(el) {
-        try {
-            el.disabled = el.disabled ? false : true;
-        } catch (E) {}
-        if (el.childNodes && el.childNodes.length > 0) {
-            for (var x = 0; x < el.childNodes.length; x++) {
-                sah1(el.childNodes[x]);
-            }
-        }
+  function define() {
+      document.getElementById("div33").style.display = "none";
+      document.getElementById("div1").style.display = "block";
     }
 
   </script>
   <style type="text/css">
-  #div2{
-  padding:5px 10px;
-  background-color:#777;
-  width:150px;
-  margin-bottom:20px;
-}
+
 .disabledDiv {
     pointer-events: none;
     opacity: 0.4;
@@ -159,8 +143,12 @@
         <% if(tbl != undefined){ %>
               <div class="col-md-6 border">
                 <h3 style="text-align: center; margin:20px;">population</h3>
-                <input type="button" value="Click" onclick="sah()" />
-                <div id="div1" class="container" style="margin:50px 0px 0 50px; align: center">
+
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-left:50px">
+                  <button type="button" class="btn btn-dark" onclick="define()">Define</button>
+                  <button type="button" class="btn btn-dark" onclick="select()">Select</button>
+                </div>
+                <div id="div1" class="container" style="margin:0px 0px 0 50px; align: center">
                           <!-- disable form -->
 
                           <!-- <div id="div1">
@@ -179,6 +167,16 @@
                     <!-- aggregation function input -->
                     <div  class="row" style="width:458px; margin-bottom:5px;">
                       <!-- ###### row number 2 ###### -->
+                    <div class="row" id="div33" style="margin-top:-15px; display:none;">
+                        <p>Choose existing population</p>
+                        <select name="S" style="width:200px; display:inline;" class="form-select" aria-label="Default select example">
+                          <option value=""></option>
+                          <% tbl.forEach(function(column) {%>
+                          <option><%= column%></option>
+                          <%})%>
+                        </select>
+                      </div>
+
                       <p>Add aggregated column</p>
                       <p style="font-size: 10px; margin-top:-40px">*Add new column using two columns data</p>
                       <div class="row" style="margin-top:-15px">
