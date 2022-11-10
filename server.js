@@ -81,13 +81,13 @@ console.log(req.body.popType);
 var filteredDS = await mongoose.connection.db.collection(dsName);
 
 if(req.body.popType === 'defined'){
-if(a[0] != '' && a[1] != '' && a[2] != ''){
-  var agg = aggregation.aggregate(req.body.a);
-}else{
-  var agg = undefined;
+      if(a[0] != '' && a[1] != '' && a[2] != ''){
+        var agg = aggregation.aggregate(req.body.a);
+      }else{
+        var agg = undefined;
+      }
+        var pop = population.filter(req.body.p);
 }
-  var pop = population.filter(req.body.p);
- }
 //else if(req.body.popType === 'selected'){
 //   var agg = جبها من الداتابيس;
 //   var pop = جبها من الداتابيس;
