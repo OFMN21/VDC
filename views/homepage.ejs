@@ -168,9 +168,10 @@
                         <p>Choose existing population</p>
                         <select name="S" style="width:200px; display:inline;" class="form-select" aria-label="Default select example">
                           <option value=""></option>
-                          <% tbl.forEach(function(column) {%>
-                          <option><%= column%></option>
-                          <%})%>
+
+                          <option>pop1</option>
+                          <option>pop2</option>
+
                         </select>
                       </div>
                     <div id="div1" style="">
@@ -288,8 +289,8 @@
                             <div style="margin-left:-25px"class="form-check">
                                 <input name="popName" style="width:250px;margin-right:30px; display:inline" class="form-control" type="text" >
                                 <label class="form-check-label" for="flexCheckDefault">
-                                  Svae
-                                <input class="form-check-input" type="checkbox">
+                                  Save
+                                <input name="popSave" class="form-check-input" type="checkbox" >
                                 </label>
                           </div>
                     </div>

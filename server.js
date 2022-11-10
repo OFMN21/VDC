@@ -13,6 +13,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
 
+
 var x;
 var y;
 var dsName;
@@ -64,11 +65,11 @@ const userSchema = new mongoose.Schema({
   password: String,
   dateSets: [String]
 });
-// const populationSchema = new mongoose.Schema({
-//   _id: String,
-//   aggregation: String,
-//   population: String
-// });
+const populationSchema = new mongoose.Schema({
+  _id: String,
+  population: {},// tried multipul ways i couldn't find the right one
+  aggregation: String
+});
 userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
@@ -77,26 +78,35 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 
 app.post("/filter", async function(req, res){
+
 console.log(req.body.popType);
 var filteredDS = await mongoose.connection.db.collection(dsName);
-
+var a=req.body.a;
 if(req.body.popType === 'defined'){
 if(a[0] != '' && a[1] != '' && a[2] != ''){
   var agg = aggregation.aggregate(req.body.a);
 }else{
   var agg = undefined;
 }
-  var pop = population.filter(req.body.p);
+   var pop = population.filter(req.body.p);
+
  }
-//else if(req.body.popType === 'selected'){
-//   var agg = جبها من الداتابيس;
-//   var pop = جبها من الداتابيس;
-// }
+ //when user press selected form
+else if(req.body.popType === 'selected'){
+
+var pname= req.body.S + '_' + dsName +"_pop"+"s" // to find the collaction the req.body.S we got it from line 169 in the homepage "the name of the select element"
+
+var popCollc =  mongoose.connection.db.collection(pname)
+
+var pop = await popCollc.findOne({_id:req.body.S},{population:1});
+console.log("here"+pop);//should diffrent way because when i use it in query it return an error from query. 
+
+}
   else{
     var agg = undefined;
     var pop = undefined;
 }
-
+console.log("000here"+pop);
   try{
       var array = await query.query(
         filteredDS,
@@ -106,6 +116,7 @@ if(a[0] != '' && a[1] != '' && a[2] != ''){
         req.body.q2,
         req.body.q3
       );
+
     }
   catch(err){
       console.log(err);
@@ -123,10 +134,26 @@ if(a[0] != '' && a[1] != '' && a[2] != ''){
       res.redirect("/homepage");
       return;
     }
-  // if(req.body.اسم التشيكبوكس.checked){
-  //   // var popname = req.body.popName + '_' + dsName
-  //   // const savePop = new mongoose.model(, populationSchema);
-  // }
+    //Saving the population ---------------------------------------------------------------------------------------
+    var pop
+
+    //"note when the user check the box and then goes to the selected form it will create a empty collaction."
+
+  if(req.body.popSave==='on'){  //For some reason the output of req.body.popSave.checked is "undefined" so i used popSave which is the name of the input.
+    var popName = req.body.popName + '_' + dsName +"_pop"
+    const savePop = new mongoose.model(popName, populationSchema); // Create Collection
+
+    const newPop = new savePop({
+      _id: req.body.popName,
+      population: pop, //should diffrent way because when i use it in query it return an error from query.
+      //aggregation: agg // not sure how to save the aggregattion
+    });
+    newPop.save();
+  }
+//Saving the population ---------------------------------------------------------------------------------------
+
+
+
   message = 'undefined';
   messageType = 'undefined';
   res.redirect("/chartpage");
