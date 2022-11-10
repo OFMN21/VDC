@@ -24,13 +24,9 @@ async function query(DS,filter,aggregate,q1,q2,q3){
   if(filter == undefined){
     filter = {}
   }
-  if(aggregate == undefined){
-    aggregate = {$addFields:{}}
-  }
-
   switch (q3) {
     case 'Avg':
-
+        console.log('AVG');
         filtered = await DS.aggregate(
                                       [ aggregate,
                                         {$match: filter},
@@ -41,10 +37,9 @@ async function query(DS,filter,aggregate,q1,q2,q3){
                                         .toArray()
       break;
     case 'Count':
-
+        console.log('count');
         filtered = await DS.aggregate(
                                       [
-                                        aggregate,
                                         {$match: filter},
                                         {
                                           $group:
@@ -57,9 +52,9 @@ async function query(DS,filter,aggregate,q1,q2,q3){
                                       .toArray()
     break;
     case 'Sum':
-
+        console.log('sum');
         filtered = await DS.aggregate(
-                                      [ aggregate,
+                                      [
                                         {$match: filter},
                                       {$group:
                                         {_id:'$'+grouping[q1],
@@ -68,10 +63,9 @@ async function query(DS,filter,aggregate,q1,q2,q3){
                                       .toArray()
       break;
       case 'Max':
-
+          console.log('MAX');
           filtered = await DS.aggregate(
                                         [
-                                          aggregate,
                                           {$match: filter},
                                           {$group:
                                         {_id:'$'+grouping[q1],
@@ -79,10 +73,9 @@ async function query(DS,filter,aggregate,q1,q2,q3){
                                         .toArray()
         break;
         case 'Min':
-
+          console.log('MIN');
           filtered = await DS.aggregate(
                                         [
-                                          aggregate,
                                           {$match: filter},
                                           {$group:
                                          {_id:'$'+grouping[q1],

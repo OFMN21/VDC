@@ -13,6 +13,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const multer = require('multer');
 const app = express();
 
+
 var x;
 var y;
 var dsName;
@@ -64,11 +65,11 @@ const userSchema = new mongoose.Schema({
   password: String,
   dateSets: [String]
 });
-// const populationSchema = new mongoose.Schema({
-//   _id: String,
-//   aggregation: String,
-//   population: String
-// });
+const populationSchema = new mongoose.Schema({
+  _id: String,
+  aggregation: Object,
+  population: Object// tried multipul ways i couldn't find the right one
+});
 userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
@@ -77,27 +78,42 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 
 app.post("/filter", async function(req, res){
-console.log(req.body.popType);
+
 var filteredDS = await mongoose.connection.db.collection(dsName);
+var a = req.body.a; var p = req.body.p;
 
 if(req.body.popType === 'defined'){
+      //check agg
       if(a[0] != '' && a[1] != '' && a[2] != ''){
         var agg = aggregation.aggregate(req.body.a);
       }else{
         var agg = undefined;
       }
-        var pop = population.filter(req.body.p);
-}
-//else if(req.body.popType === 'selected'){
-//   var agg = جبها من الداتابيس;
-//   var pop = جبها من الداتابيس;
-// }
-  else{
-    var agg = undefined;
-    var pop = undefined;
+      //check pop
+      if(p[0] != '' && p[1] != '' && p[2] != ''){
+        var pop = population.filter(p);
+      }else if(p[0] === '' && p[1] === '' && p[2] === ''){
+        var pop = undefined;
+      }
+      else{
+        message = "Population input is not valid";
+        messageType = "alert-danger"
+        res.redirect("/homepage");
+        return;
+      }
+
+//saved pop
+}else if(req.body.popType === 'selected'){
+
+      var pname = dsName +"_pop"+"s"
+      var popCollc = mongoose.connection.db.collection(pname)
+      var pop = await popCollc.findOne({_id:req.body.S},{population:1});
+      var agg = await popCollc.findOne({_id:req.body.S},{aggregation:1});
 }
 
-  try{
+
+//get query array
+try{
       var array = await query.query(
         filteredDS,
         pop,
@@ -106,27 +122,44 @@ if(req.body.popType === 'defined'){
         req.body.q2,
         req.body.q3
       );
-    }
-  catch(err){
-      console.log(err);
+
+  }catch(err){
       message = "Query input is not valid";
       messageType = "alert-danger"
       res.redirect("/homepage");
       return;
     }
-  x = array[0];
-  y = array[1];
-  console.log(x,y);
-  if(x.length === 0 || y.length === 0){
-      message = "Population input is not valid";
+x = array[0];
+y = array[1];
+
+// check pop is empty
+if(x.length === 0 || y.length === 0){
+      message = "Population doesn't exist in the dataset";
+      messageType = "alert-danger"
+      res.redirect("/homepage");
+      return;
+  }
+
+if(req.body.popSave === 'on'){
+
+    if(req.body.popName != '' && p[0] != '' && p[1] != '' && p[2] != ''){
+            var popName = dsName +"_pop" ;
+            const savePop = new mongoose.model(popName, populationSchema); // Create Collection
+
+            const newPop = new savePop({
+              _id: req.body.popName,
+              aggregation: agg,
+              population: pop
+            });
+            newPop.save();
+    }else{
+      message = "Cant save empty population";
       messageType = "alert-danger"
       res.redirect("/homepage");
       return;
     }
-  // if(req.body.اسم التشيكبوكس.checked){
-  //   // var popname = req.body.popName + '_' + dsName
-  //   // const savePop = new mongoose.model(, populationSchema);
-  // }
+}
+
   message = 'undefined';
   messageType = 'undefined';
   res.redirect("/chartpage");
@@ -146,7 +179,7 @@ app.get("/chartpage", async function(req, res){
 app.post("/create", upload.single('file'), function(req, res) {
 
   var name = req.body.datasetName + ""
-  var datasetName = name + '_' + currentUser+ 's'; //change username to globalString ------------------------------------------------>to go back to the old IDEA
+  var datasetName = name + '_' + currentUser+ 's';
   var file = __dirname + '/uploads/' + req.file.filename
 
   mongoose.connection.db.listCollections({name: datasetName})

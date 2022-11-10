@@ -20,7 +20,7 @@ function aggregate(a){
        }
     }
   }
-  console.log(obj);
+
   return obj;
 }
 
