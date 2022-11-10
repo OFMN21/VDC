@@ -35,7 +35,7 @@
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <!-- <label class="form-label" for="form3Example1c">Your Name</label> -->
-                        <input type="text" name="name" required id="form3Example1c" class="form-control" placeholder="Name" required />
+                        <input type="text" name="name" pattern="[a-zA-Z]" title="Name only contains letters" required id="form3Example1c" class="form-control" placeholder="Name" required />
 
                       </div>
                     </div>
@@ -52,7 +52,7 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <!-- <label class="form-label" for="form3Example4c">Password</label> -->
-                        <input type="password" name="password" required id="form3Example4c" class="form-control" placeholder="Password" required />
+                        <input type="password" name="password" minlength="8" required id="form3Example4c" class="form-control" placeholder="Password" required />
                       </div>
                     </div>
                     <!--
@@ -85,7 +85,7 @@
                   <img src="Logo2.jpg" style="border-radius: 8px;" class="img-fluid " alt="Sample image">
 
                 </div>
-                
+
               </div>
             </div>
           </div>

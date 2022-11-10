@@ -148,7 +148,7 @@ if(req.body.popSave === 'on'){
 
     if(req.body.popName != '' && p[0] != '' && p[1] != '' && p[2] != ''){
             var popName = dsName +"_pop" ;
-            const savePop = new mongoose.model(popName, populationSchema); 
+            const savePop = new mongoose.model(popName, populationSchema);
 
             const newPop = new savePop({
               _id: req.body.popName,
@@ -307,6 +307,7 @@ app.get("/logout", (req, res) => {
 
 app.post("/register", function(req, res) {
   User.register({
+    name: req.body.name,
     username: req.body.username
   }, req.body.password, function(err, user) {
     if (err) {
