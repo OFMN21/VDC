@@ -170,8 +170,9 @@
                         <p>Choose existing population</p>
                         <select name="S" style="width:200px; display:inline;" class="form-select" aria-label="Default select example">
                           <option value=""></option>
-                          <option>pop1</option>
-                          <option>pop2</option>
+                          <% pops.forEach(function(pop) {%>
+                          <option><%= pop%></option>
+                          <%})%>
                         </select>
                       </div>
                     <div id="div1" style="">

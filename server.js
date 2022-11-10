@@ -19,6 +19,7 @@ var y;
 var dsName;
 var dsTitle;
 var columnNames;
+var populations;
 var dsDelete;
 var currentUser;
 var message = 'undefined';
@@ -68,8 +69,9 @@ const userSchema = new mongoose.Schema({
 const populationSchema = new mongoose.Schema({
   _id: String,
   aggregation: Object,
-  population: Object// tried multipul ways i couldn't find the right one
+  population: Object
 });
+
 userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
@@ -79,7 +81,8 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 
 app.post("/filter", async function(req, res){
 
-var filteredDS = await mongoose.connection.db.collection(dsName);
+var filteredDS = await mongoose.connection.db.collection(String(dsName));
+console.log(dsName,"<<<<<<<ERRRRRR filter");
 var a = req.body.a; var p = req.body.p;
 
 if(req.body.popType === 'defined'){
@@ -103,14 +106,15 @@ if(req.body.popType === 'defined'){
       }
 
 //saved pop
-}else if(req.body.popType === 'selected'){
-
-      var pname = dsName +"_pop"+"s"
-      var popCollc = mongoose.connection.db.collection(pname)
-      var pop = await popCollc.findOne({_id:req.body.S},{population:1});
-      var agg = await popCollc.findOne({_id:req.body.S},{aggregation:1});
 }
+else if(req.body.popType === 'selected' && req.body.S != ''){
 
+      var pname = dsName +"_pops"
+      var popCollc = mongoose.connection.db.collection(pname)
+      var popObject = await popCollc.findOne({_id:req.body.S});
+      var agg = popObject.aggregation;
+      var pop = popObject.population;
+}
 
 //get query array
 try{
@@ -144,7 +148,7 @@ if(req.body.popSave === 'on'){
 
     if(req.body.popName != '' && p[0] != '' && p[1] != '' && p[2] != ''){
             var popName = dsName +"_pop" ;
-            const savePop = new mongoose.model(popName, populationSchema); // Create Collection
+            const savePop = new mongoose.model(popName, populationSchema); 
 
             const newPop = new savePop({
               _id: req.body.popName,
@@ -152,6 +156,7 @@ if(req.body.popSave === 'on'){
               population: pop
             });
             newPop.save();
+            populations = await mongoose.connection.db.collection(dsName+ '_pops').distinct("_id", {});
     }else{
       message = "Cant save empty population";
       messageType = "alert-danger"
@@ -236,7 +241,7 @@ app.get("/login", function(req, res) {
   });
 });
 
-app.post("/view", function(req, res) {
+app.post("/view", async function(req, res) {
   columnNames = undefined;
   dsName = req.body.view + '_' + currentUser + 's';
   dsTitle = req.body.view;
@@ -247,6 +252,9 @@ app.post("/view", function(req, res) {
     messageType = "alert-danger"
   }else{
   var dataset = mongoose.connection.db.collection(dsName)
+  populations = await mongoose.connection.db.collection(dsName+ '_pops').distinct("_id", {});
+
+  console.log(dsName,"<<<<<<<ERRRRRR");
   var mykeys;
   dataset.findOne({}, function(err,result) {
   mykeys = Object.keys(result);
@@ -274,7 +282,8 @@ app.get("/homepage", function(req, res) {
         msg: message,
         type: messageType,
         tbl: columnNames,
-        ds: dsTitle
+        ds: dsTitle,
+        pops: populations
       });
       message = 'undefined';
       messageType = 'undefined';
