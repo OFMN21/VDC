@@ -82,7 +82,7 @@ passport.deserializeUser(User.deserializeUser()); //end the session
 app.post("/filter", async function(req, res){
 
 var filteredDS = await mongoose.connection.db.collection(String(dsName));
-console.log(dsName,"<<<<<<<ERRRRRR filter");
+
 var a = req.body.a; var p = req.body.p;
 
 if(req.body.popType === 'defined'){
@@ -207,6 +207,7 @@ app.post("/create", upload.single('file'), function(req, res) {
                 console.log(err)
               } else {}
             })
+
             create.createDataset(datasetName, file)
             message = "Dataset Created";
             messageType = "alert-success";
@@ -254,22 +255,29 @@ app.post("/view", async function(req, res) {
   var dataset = mongoose.connection.db.collection(dsName)
   populations = await mongoose.connection.db.collection(dsName+ '_pops').distinct("_id", {});
 
-  console.log(dsName,"<<<<<<<ERRRRRR");
   var mykeys;
+  console.log('select');
+
   dataset.findOne({}, function(err,result) {
+  try{
   mykeys = Object.keys(result);
+  console.log(dataset);
+  columnNames = mykeys.splice(0,mykeys.length)
+  }catch{
+    console.log(dataset);
+  }
   if(err){console.log("not working")}
 
-  columnNames = mykeys.splice(0,mykeys.length)
 
 });
+
   res.redirect("/homepage");
   }
 
 });
 
-app.get("/homepage", function(req, res) {
-
+app.get("/homepage", async function(req, res) {
+  populations = await mongoose.connection.db.collection(dsName+ '_pops').distinct("_id", {});
   if (req.isAuthenticated()) {
     User.findOne({
       username: currentUser

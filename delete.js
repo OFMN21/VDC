@@ -16,7 +16,13 @@ function deleteDataset(datasetName, username){
   const ds = datasetName + "_" + username +"s"
   const pop = ds + "_pops"
   mongoose.connection.db.dropCollection(ds);
-  mongoose.connection.db.dropCollection(pop);
+  //mongoose.connection.db.dropCollection(pop);
+  mongoose.connection.db.listCollections({name: pop}).next(function(err, collinfo) {
+          if (collinfo) {
+            mongoose.connection.db.dropCollection(pop);
+          }
+  })
 }
+
 
 module.exports = deleteDataset;

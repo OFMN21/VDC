@@ -42,6 +42,17 @@ fs.createReadStream(file)
       const name = datasetName + ""
       const Thing = new mongoose.model(name, thingSchema);
       let i = 1;
+
+      while (i < data.length) {
+        v = new Thing(data[i]);
+        if( v.validateSync() != undefined){
+
+          return;
+        }
+        i++;
+      }
+      i = 1;
+
       while (i < data.length) {
         const thing = new Thing(
           data[i]
