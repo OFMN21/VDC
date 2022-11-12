@@ -18,6 +18,56 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+// const createDataset = (datasetName, file) => new Promise((resolve, reject) => {
+// console.log("creating");
+// const data = [];
+// fs.createReadStream(file)
+//   .pipe(
+//     parse({
+//       delimiter: ",",
+//       columns: true,
+//       ltrim: true,
+//     })
+//   )
+//   .on("data", function (row) {
+//
+//     data.push(row);
+//   })
+//   .on("error", function (error) {
+//     console.log("hi");
+//   })
+//   .on("end", async function () {
+//       const thingSchema = new mongoose.Schema(
+//       data[0] , { strict: false, versionKey:false});
+//       const name = datasetName + ""
+//       const Thing = new mongoose.model(name, thingSchema);
+//       let i = 1;
+//       var v;
+//
+//       while (i < data.length) {
+//         v = new Thing(data[i]);
+//         if( v.validateSync() != undefined){
+//           reject('invalid row');
+//         }
+//         i++;
+//       }
+//       i = 1;
+//
+//       while (i < data.length) {
+//         const thing = new Thing(
+//           data[i]
+//         );
+//         await thing.save();
+//             i++;
+//           }
+//   try {
+//     fs.unlinkSync(file);
+//     console.log("Delete File successfully.");
+//   } catch (error) { console.log(error);}
+//   resolve()
+//   });
+// });
+
 function createDataset(datasetName, file) {
 console.log("creating");
 const data = [];
@@ -34,7 +84,7 @@ fs.createReadStream(file)
     data.push(row);
   })
   .on("error", function (error) {
-    console.log(error.message);
+    console.log("hi");
   })
   .on("end", function () {
       const thingSchema = new mongoose.Schema(
@@ -42,28 +92,18 @@ fs.createReadStream(file)
       const name = datasetName + ""
       const Thing = new mongoose.model(name, thingSchema);
       let i = 1;
-
-      while (i < data.length) {
-        v = new Thing(data[i]);
-        if( v.validateSync() != undefined){
-
-          return;
-        }
-        i++;
-      }
-      i = 1;
-
-      while (i < data.length) {
-        const thing = new Thing(
-          data[i]
-        );
-        thing.save();
-            i++;
+        while (i < data.length) {
+          const thing = new Thing(data[i]);
+          if( thing.validateSync() != undefined){
+            break;
           }
-  try {
-    fs.unlinkSync(file);
-    console.log("Delete File successfully.");
-  } catch (error) { console.log(error);}
+          thing.save();
+              i++;
+        }
+        try {
+          fs.unlinkSync(file);
+          console.log("Delete File successfully.");
+        } catch (error) { console.log(error);}
   });
 }
 
@@ -90,7 +130,7 @@ const data = [];
   const name = datasetName + ""
 
 try{
-    mongoose.deleteModel(name)
+    mongoose.deleteModel(name);
 }catch (error){
   console.log("unable to update");
 }

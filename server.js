@@ -136,6 +136,12 @@ try{
 x = array[0];
 y = array[1];
 
+if(typeof y[0] === 'string' || y[0] === 0 || y[0] === null){
+  message = "Y-axis can't be string";
+  messageType = "alert-danger"
+  res.redirect("/homepage");
+  return;
+}
 // check pop is empty
 if(x.length === 0 || y.length === 0){
       message = "Population doesn't exist in the dataset";
@@ -188,36 +194,37 @@ app.post("/create", upload.single('file'), function(req, res) {
   var file = __dirname + '/uploads/' + req.file.filename
 
   mongoose.connection.db.listCollections({name: datasetName})
-      .next(function(err, collinfo) {
+      .next(async function(err, collinfo) {
           if (collinfo) {
             create.updateDataset(datasetName, file)
             message = "Dataset Updated";
             messageType = "alert-success";
 
           }else{
-            User.updateOne({
-              username: {
-                $gte: currentUser
-              }
-            }, {$push: {
-                dateSets: [name]
 
-              }}, function(err, docs) {
-              if (err) {
-                console.log(err)
-              } else {}
-            })
+            create.createDataset(datasetName, file);
+              User.updateOne({
+                username: {
+                  $gte: currentUser
+                }
+              }, {$push: {
+                  dateSets: [name]
 
-            create.createDataset(datasetName, file)
-            message = "Dataset Created";
-            messageType = "alert-success";
+                }}, function(err, docs) {
+                if (err) {
+                  console.log(err)
+                } else {}
+              })
+              message = "Dataset Created";
+              messageType = "alert-success";
           }
       });
+      res.redirect("/homepage")
 
-  res.redirect("/homepage");
 });
 
 app.post("/delete", function(req, res) {
+
   User.findOneAndUpdate({ username: currentUser }, { $pull: { dateSets: dsDelete } }, function(err, foundList) {});
   deleteDataset(dsDelete, currentUser)
   dsDelete = null;
@@ -256,12 +263,10 @@ app.post("/view", async function(req, res) {
   populations = await mongoose.connection.db.collection(dsName+ '_pops').distinct("_id", {});
 
   var mykeys;
-  console.log('select');
 
   dataset.findOne({}, function(err,result) {
   try{
   mykeys = Object.keys(result);
-  console.log(dataset);
   columnNames = mykeys.splice(0,mykeys.length)
   }catch{
     console.log(dataset);
