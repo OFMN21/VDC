@@ -33,13 +33,6 @@
   }
 
   </script>
-  <style type="text/css">
-
-.disabledDiv {
-    pointer-events: none;
-    opacity: 0.4;
-}
-  </style>
 
 
 </head>
@@ -51,9 +44,8 @@
     <header class="p-3 text-bg-dark">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="#" class="d-block link-dark text-decoration-none " aria-expanded="false">
-            <img src="" alt="mdo" width="100" height="50">
-          </a>
+          <span class="fs-4">VDC</span>
+
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           </ul>
           <!-- <div  style="margin-right:1100px">
@@ -119,7 +111,7 @@
 
     <div class="col-10">
 <!-- <h2 class="text-center"><%= ds %></h2> -->
-      <div class="row" style="margin-right:50px">
+      <div class="row" style="margin-right:40px; margin-left:20px">
         <% if(tbl != undefined){ %>
         <table class="table table-bordered table-dark" style="margin:5px; margin-bottom:0px;">
           <thead>
@@ -152,18 +144,6 @@
                   <button type="button" class="btn btn-dark" onclick="select()">Select</button>
                 </div>
                 <div class="container" style="margin:0px 0px 0 50px; align: center;" >
-                          <!-- disable form -->
-
-                          <!-- <div id="div1">
-
-
-
-                              </div> -->
-
-
-
-
-                      <!-- disable form -->
                   <form class="" action="/filter" method="post">
                     <input type="hidden" id="popType" name="popType" value="defined">
                     <div class="row" id="div2" style="margin-top:-15px; display:none;">

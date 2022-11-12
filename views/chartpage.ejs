@@ -23,9 +23,7 @@
     <header class="p-3 text-bg-dark">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="#" class="d-block link-dark text-decoration-none " aria-expanded="false">
-            <img src="" alt="mdo" width="32" height="32">
-          </a>
+          <span class="fs-4">VDC</span>
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           </ul>
           <div class="text-end">
@@ -84,9 +82,9 @@
         </div>
 
         <div class="inputBox">
-          <input type="number" class="form-control" style="width:200px; display:inline" placeholder="Data value" id="inputdata">
+          <!-- <input type="number" class="form-control" style="width:200px; display:inline" placeholder="Data value" id="inputdata">
           <input type="text" class="form-control" style="width:200px; display:inline" placeholder="Data" id="inputlabel">
-          <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button>
+          <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button> -->
           <hr>
           <input type="number" class="form-control" style="width:100px; display:inline" id="filterdatanumber">
           <select id="filter" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
@@ -178,14 +176,14 @@
 
 
 
-          function updateChart() {
-            const inputdata = document.getElementById('inputdata');
-            const inputlable = document.getElementById('inputlabel');
-            myChart.data.datasets[0].data.push(inputdata.value);
-            myChart.data.datasets[0].backgroundColor.push(dynamicColors());
-            myChart.data.labels.push(inputlabel.value);
-            myChart.update()
-          }
+          // function updateChart() {
+          //   const inputdata = document.getElementById('inputdata');
+          //   const inputlable = document.getElementById('inputlabel');
+          //   myChart.data.datasets[0].data.push(inputdata.value);
+          //   myChart.data.datasets[0].backgroundColor.push(dynamicColors());
+          //   myChart.data.labels.push(inputlabel.value);
+          //   myChart.update()
+          // }
 
 
           // function filterChart
