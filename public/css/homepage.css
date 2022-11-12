@@ -1,9 +1,14 @@
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
 /* #############TO DO LIST CSS################## */
 .box {
   max-width: 300px;
   margin: 50px auto;
   background: white;
-  border-radius: 5px;
+  border-radius: 0px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
 }
 
