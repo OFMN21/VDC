@@ -18,56 +18,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// const createDataset = (datasetName, file) => new Promise((resolve, reject) => {
-// console.log("creating");
-// const data = [];
-// fs.createReadStream(file)
-//   .pipe(
-//     parse({
-//       delimiter: ",",
-//       columns: true,
-//       ltrim: true,
-//     })
-//   )
-//   .on("data", function (row) {
-//
-//     data.push(row);
-//   })
-//   .on("error", function (error) {
-//     console.log("hi");
-//   })
-//   .on("end", async function () {
-//       const thingSchema = new mongoose.Schema(
-//       data[0] , { strict: false, versionKey:false});
-//       const name = datasetName + ""
-//       const Thing = new mongoose.model(name, thingSchema);
-//       let i = 1;
-//       var v;
-//
-//       while (i < data.length) {
-//         v = new Thing(data[i]);
-//         if( v.validateSync() != undefined){
-//           reject('invalid row');
-//         }
-//         i++;
-//       }
-//       i = 1;
-//
-//       while (i < data.length) {
-//         const thing = new Thing(
-//           data[i]
-//         );
-//         await thing.save();
-//             i++;
-//           }
-//   try {
-//     fs.unlinkSync(file);
-//     console.log("Delete File successfully.");
-//   } catch (error) { console.log(error);}
-//   resolve()
-//   });
-// });
-
 function createDataset(datasetName, file) {
 console.log("creating");
 const data = [];
@@ -92,12 +42,13 @@ fs.createReadStream(file)
       const name = datasetName + ""
       const Thing = new mongoose.model(name, thingSchema);
       let i = 1;
+
         while (i < data.length) {
           const thing = new Thing(data[i]);
-          if( thing.validateSync() != undefined){
-            break;
+          if( thing.validateSync() != undefined){}
+          else{
+              thing.save();
           }
-          thing.save();
               i++;
         }
         try {
@@ -107,7 +58,7 @@ fs.createReadStream(file)
   });
 }
 
-function  updateDataset(datasetName, file) {
+async function updateDataset(datasetName, file) {
 const data = [];
   fs.createReadStream(file)
   .pipe(
@@ -130,7 +81,7 @@ const data = [];
   const name = datasetName + ""
 
 try{
-    mongoose.deleteModel(name);
+    mongoose.deleteModel(name)
 }catch (error){
   console.log("unable to update");
 }
@@ -140,14 +91,16 @@ try{
   while (i < data.length){
   obj = data[i];
   var filter = {_id : obj._id}
+  try{
   await Schem.findOneAndUpdate(filter, obj, {
   new: true,
   upsert: true // Make this update into an upsert
 });
+}catch(error){
+  console.log('err');
+}
 i++;
 }
-//data.splice(1,data.length) cuts the array
-//Object.values(obj)[1] gives you first key value
 
   try {
     fs.unlinkSync(file);

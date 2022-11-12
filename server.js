@@ -196,10 +196,11 @@ app.post("/create", upload.single('file'), function(req, res) {
   mongoose.connection.db.listCollections({name: datasetName})
       .next(async function(err, collinfo) {
           if (collinfo) {
-            create.updateDataset(datasetName, file)
-            message = "Dataset Updated";
-            messageType = "alert-success";
-
+            try{
+             create.updateDataset(datasetName, file)
+           }catch(error){console.log("catched");}
+             message = "Dataset Updated";
+             messageType = "alert-success";
           }else{
 
             create.createDataset(datasetName, file);
@@ -215,8 +216,8 @@ app.post("/create", upload.single('file'), function(req, res) {
                   console.log(err)
                 } else {}
               })
-              message = "Dataset Created";
-              messageType = "alert-success";
+               message = "Dataset Created";
+               messageType = "alert-success";
           }
       });
       res.redirect("/homepage")

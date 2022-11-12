@@ -77,35 +77,15 @@
       </div>
       <div class="col-9">
         <div class="chartBox">
-          <canvas id="myChart"></canvas>
+          <canvas style="height:400px; width:700px; margin-right:100px;" id="myChart"></canvas>
 
         </div>
 
         <div class="inputBox">
-          <!-- <input type="number" class="form-control" style="width:200px; display:inline" placeholder="Data value" id="inputdata">
-          <input type="text" class="form-control" style="width:200px; display:inline" placeholder="Data" id="inputlabel">
-          <button onclick="updateChart()" id="insertdata" class="btn btn-outline-primary" style="margin-bottom:3px;">Add Data</button> -->
           <hr>
-          <input type="number" class="form-control" style="width:100px; display:inline" id="filterdatanumber">
-          <select id="filter" style="width:100px; display:inline;" class="form-select" aria-label="Default select example">
-            <option value="" selected disabled >Select</option>
-            <option value="greater">></option>
-            <option value="smaller"><</option>
-            <option value="greaterOr">>=</option>
-            <option value="smallerOr"><=</option>
-            <option value="equal">=</option>
-
-
-          </select>
-          <button onclick="filterChart()" class="btn btn-outline-primary" style="margin-bottom:3px;">Filter Chart</button>
-
-          <div class="row" style="margin-top:40px">
-            <button onclick="resetChart()" class="btn btn-outline-primary" style="margin-bottom:3px; width:150px; margin-left:420px;">Reset Chart</button>
-          </div>
-
 
         </div>
-        <button onclick="download()" class="btn btn-secondary" style="margin-top:100px; margin-right:900px">Download</button>
+        <button onclick="download()" class="btn btn-success" style="margin-top:10px; margin-right:900px">Download</button>
 
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
