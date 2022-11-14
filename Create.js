@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 function createDataset(datasetName, file) {
+
 console.log("creating");
 const data = [];
 fs.createReadStream(file)
@@ -40,6 +41,11 @@ fs.createReadStream(file)
       const thingSchema = new mongoose.Schema(
       data[0] , { strict: false, versionKey:false});
       const name = datasetName + ""
+      try{
+          mongoose.deleteModel(name)
+      }catch (error){
+        console.log("unable to update");
+      }
       const Thing = new mongoose.model(name, thingSchema);
       let i = 1;
 

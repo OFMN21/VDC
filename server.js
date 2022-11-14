@@ -189,7 +189,8 @@ app.get("/chartpage", async function(req, res){
 
 app.post("/create", upload.single('file'), function(req, res) {
 
-  var name = req.body.datasetName + ""
+  var name = (req.body.datasetName + "").toLowerCase()
+  console.log(name);
   var datasetName = name + '_' + currentUser+ 's';
   var file = __dirname + '/uploads/' + req.file.filename
 

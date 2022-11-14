@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 var arr = []
- 
+
 async function query(DS,filter,aggregate,q1,q2,q3){
 
   arr.length = 0;

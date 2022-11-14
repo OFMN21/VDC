@@ -15,7 +15,11 @@ app.use(bodyParser.urlencoded({
 function deleteDataset(datasetName, username){
   const ds = datasetName + "_" + username +"s"
   const pop = ds + "_pops"
+  try{
   mongoose.connection.db.dropCollection(ds);
+}catch{
+  console.log('err');
+}
   //mongoose.connection.db.dropCollection(pop);
   mongoose.connection.db.listCollections({name: pop}).next(function(err, collinfo) {
           if (collinfo) {
